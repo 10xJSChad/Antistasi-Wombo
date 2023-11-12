@@ -1,3 +1,7 @@
+```
+Antistasi Wombo Edition
+-----------------------
+
 Features:
 - Vehicle rigging system
   Rig vehicles with explosives! All (god willing) vanilla + rhs charges can be used to
@@ -52,3 +56,4 @@ Groups:
 
 Altis:
   - Removed Rifleman and Team Leader roles.
+```
