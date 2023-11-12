@@ -33,6 +33,12 @@ if (_radiomanIndex isEqualTo -1) exitWith {
 };
 
 private _radioMan = (units _group) select _radiomanIndex;
+private _radioManJammed = _radioMan getVariable ["TCE_unitJammed", false];
+
+if (_radioManJammed) exitWith {
+    Info_1("Radioman of %1 (side %2) is jammed, aborting calling support.", _group, _side);
+};
+
 
 //If radioman is down, dont call support
 if !(_radioMan call A3A_fnc_canFight) exitWith {};

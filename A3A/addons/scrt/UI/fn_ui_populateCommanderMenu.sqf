@@ -89,29 +89,33 @@ lbAdd [1750, localize "STR_commander_menu_flare_barrage_title"];
 lbSetData [1750, 1, "FLARE"];
 lbSetTooltip [1750, 1, localize "STR_commander_menu_flare_barrage_tooltip"];
 
+lbAdd [1750, "EMP"];
+lbSetData [1750, 2, "EMP"];
+lbSetTooltip [1750, 2, "Takes out all radio communications and lights in the EMP blast zone."];
+
 lbAdd [1750, localize "STR_commander_menu_lva_title"];
-lbSetData [1750, 2, "VEH_AIRDROP"];
-lbSetTooltip [1750, 2, localize "STR_commander_menu_lva_tooltip"];
+lbSetData [1750, 3, "VEH_AIRDROP"];
+lbSetTooltip [1750, 3, localize "STR_commander_menu_lva_tooltip"];
 
 lbAdd [1750, localize "STR_commander_menu_rpr_title"];
-lbSetData [1750, 3, "RECON"];
-lbSetTooltip [1750, 3, localize "STR_commander_menu_rpr_tooltip"];
+lbSetData [1750, 4, "RECON"];
+lbSetTooltip [1750, 4, localize "STR_commander_menu_rpr_tooltip"];
 
 lbAdd [1750, localize "STR_commander_menu_sca_title"];
-lbSetData [1750, 4, "SUPPLY"];
-lbSetTooltip [1750, 4, localize "STR_commander_menu_sca_tooltip"];
+lbSetData [1750, 5, "SUPPLY"];
+lbSetTooltip [1750, 5, localize "STR_commander_menu_sca_tooltip"];
 
 lbAdd [1750, localize "STR_commander_menu_hba_title"];
-lbSetData [1750, 5, "HE"];
-lbSetTooltip [1750, 5, localize "STR_commander_menu_hba_tooltip"];
+lbSetData [1750, 6, "HE"];
+lbSetTooltip [1750, 6, localize "STR_commander_menu_hba_tooltip"];
 
 lbAdd [1750, localize "STR_commander_menu_cba_title"];
-lbSetData [1750, 6, "CLUSTER"];
-lbSetTooltip [1750, 6, localize "STR_commander_menu_cba_tooltip"];
+lbSetData [1750, 7, "CLUSTER"];
+lbSetTooltip [1750, 7, localize "STR_commander_menu_cba_tooltip"];
 
 lbAdd [1750, localize "STR_commander_menu_chemba_title"];
-lbSetData [1750, 7, "CHEMICAL"];
-lbSetTooltip [1750, 7, localize "STR_commander_menu_chemba_tooltip"];
+lbSetData [1750, 8, "CHEMICAL"];
+lbSetTooltip [1750, 8, localize "STR_commander_menu_chemba_tooltip"];
 
 private _hasVn = "VN" isEqualTo ((A3A_Reb_template splitString "_") select 0);
 

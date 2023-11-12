@@ -27,7 +27,14 @@ if(_side != Occupants && {_side != Invaders}) exitWith {
 };
 
 private _groupLeader = leader _group;
+private _groupLeaderJammed = _groupLeader getVariable ["TCE_unitJammed", false];
 private _isRival = _groupLeader getVariable ["isRival", false];
+
+
+if (_groupLeaderJammed) exitWith {
+    Info_1("Group leader of %1 is jammed, aborting.", _group);
+};
+
 
 if (_isRival) then {
     Error("Rivals are not using general supports, aborting.");
