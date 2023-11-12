@@ -53,6 +53,9 @@ if (PATCOM_ARTILLERY_MANAGER) then {
 
         // Check if the killer is visible
         if (_x knowsAbout _killer >= 1.4) exitWith {
+            private _isJammed = _x getVariable ["TCE_unitJammed", false];
+            if (_isJammed) exitWith {};
+
             [getPos _killer, (random 150), "HE", (round (1 + tierWar / 2)), _group] call A3A_fnc_artilleryFireMission;
         };
 

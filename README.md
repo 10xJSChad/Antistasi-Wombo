@@ -18,6 +18,12 @@ Features:
   civ clothes, backpacks, vests, and helmets will all increase your visibility.
   This will obviously conflict with other camo mods. You can't disable this :).
 
+- EMP
+  Call in an EMP via the support menu to kill off all radio communication and light
+  near the blast zone, it may or may not be a bit too powerful, but at least you
+  won't get mortared immediately, right?
+  It has cool visuals.
+
 
 General Changes:
 - Engineer can construct anywhere.
