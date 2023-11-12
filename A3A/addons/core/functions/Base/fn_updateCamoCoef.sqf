@@ -32,4 +32,4 @@ if ((uniform _unit in (A3A_faction_civ get "uniforms"))) then {_camoCoef = _camo
 _unit setUnitTrait ["camouflageCoef", _camoCoef];
 
 // Print new coef
-// systemChat format ["Camouflage: %1", _camoCoef];
+//systemChat format ["Camouflage: %1", _camoCoef];

@@ -37,8 +37,22 @@ enableEnvironment [false, true];
 // TODO: May need to strip players?
 // TODO: May need to disable damage, but tricky if we're not sure when the player exists?
 
-// GAMERARMY: camo system
-["loadout", {_this execVM QPATHTOFOLDER(functions\Base\fn_updateCamoCoef.sqf);}, true] call CBA_fnc_addPlayerEventHandler;
+// GAMERARMY: camo system old
+//["loadout", {_this execVM QPATHTOFOLDER(functions\Base\fn_updateCamoCoef.sqf);}, true] call CBA_fnc_addPlayerEventHandler;
+
+// GAMERARMY: camo system, called on slot changed, not whole loadout change. Slight performance improvement.
+player addEventHandler ["SlotItemChanged", {
+	params ["_unit", "_name", "_slot", "_assigned"];
+
+    private _slotsToCheck = [801, 701, 901, 605]; // Uniform, vest, backpack, headgear
+
+    if (_slot in _slotsToCheck) then
+    {
+        //systemChat str _slot;
+        [_unit] call A3A_fnc_updateCamoCoef;
+    };
+
+}];
 
 // GAMERARMY: car bombs
 call A3A_fnc_vehicleRigSystem;
