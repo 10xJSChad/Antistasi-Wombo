@@ -18,7 +18,6 @@ Features:
   civ clothes, backpacks, vests, and helmets will all increase your visibility.
   This will obviously conflict with other camo mods. You can't disable this :).
 
-lmaotest
 
 General Changes:
 - Engineer can construct anywhere.
