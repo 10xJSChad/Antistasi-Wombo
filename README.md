@@ -1,3 +1,7 @@
+This is a modification of Antistasi intended to be used by myself and whoever I play with. <br>
+I do not care if you have problems with it. <br>
+Feel free to use it.
+
 ```
 Antistasi Wombo Edition
 -----------------------
