@@ -1,3 +1,11 @@
+Features:
+- Vehicle rigging system
+  Rig vehicles with explosives! All (god willing) vanilla + rhs charges can be used to
+  turn vehicles into remotely activated boom machines.
+  Open the action menu on a vehicle while carrying a charge, select "Rig with $charge",
+  then trigger it from anywhere with the "Detonate rigged $vehicle" action.
+
+
 General Changes:
 - Engineer can construct anywhere.
 
