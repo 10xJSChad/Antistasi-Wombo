@@ -1,0 +1,46 @@
+General Changes:
+- Engineer can construct anywhere.
+
+- Losing undercover by offroading too far no longer reports your vehicle.
+
+- Enemies will no longer call in mortar strikes on you in response to 
+  squadmates dying if your exact location is unknown.
+
+- Black market temporarily disabled. 
+  (might become permanent if a replacement is developed)
+
+- Rivals will no longer call in roving mortars on your HQ or black market.
+
+- Implemented camo system, your visibility to enemies now changes 
+  depending on what you're wearing, civ clothes, backpacks, vests, and helmets
+  will all increase your visibility.
+
+- Commander no longer loses points when withdrawing money from faction.
+
+- Removed "driver in all your vehicles" fast travel requirement.
+
+- Increased the fast travel valid click radius from 50 to 150 meters.
+  This means that you can now click 3x further away from the marker
+  than before when fast traveling.
+
+
+Missions:
+- New Mission: "Liberate Town"
+  A local warlord has taken over a town, and with the help of corrupt occupier soldiers
+  looking to make a quick buck, has started to sell weapons to criminal organizations around
+  Altis. Kill the bandits and liberate the town, but feel free to take their weapons cache on
+  your way out!
+
+- Completing a 'Kill the Traitor'  mission now lowers the occupant aggression. 
+- Completing a 'Kill the Official' mission now lowers the aggression of the target faction.
+
+
+Groups:
+- Removed chance for Spec Ops and Rival units to spawn as Explosives Experts.
+  They just spam landmines while patrolling. If you go afk for a bit while they're 
+  active, you're in for a fun time when you discover the minefield they've created.
+  It's just annoying.
+
+
+Altis:
+  - Removed Rifleman and Team Leader roles.
