@@ -13,11 +13,10 @@ Features:
   Open the action menu on a vehicle while carrying a charge, select "Rig with $charge",
   then trigger it from anywhere with the "Detonate rigged $vehicle" action.
 
-- "Dynamic" camo system, your visibility to enemies now changes 
-  depending on what you're wearing, civ clothes, backpacks, vests, and helmets
-  will all increase your visibility.
-  This will obviously conflict with other camo mods.
-  You can't disable this :).
+- "Dynamic" camo system
+  Your visibility to enemies now changes depending on what you're wearing,
+  civ clothes, backpacks, vests, and helmets will all increase your visibility.
+  This will obviously conflict with other camo mods. You can't disable this :).
 
 General Changes:
 - Engineer can construct anywhere.
