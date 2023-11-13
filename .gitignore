@@ -1,3 +1,4 @@
 /build
 build.sh
-/.vscode/arma-dev.json
+.vscode/
+build/
