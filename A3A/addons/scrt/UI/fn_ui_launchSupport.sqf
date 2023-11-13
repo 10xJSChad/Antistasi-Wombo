@@ -81,7 +81,7 @@ if (isNil "supportMarkerOrigin") exitWith {
 	] spawn SCRT_fnc_ui_showMessage;
 };
 
-if (!(supportType in ["SMOKE", "FLARE"]) && {isNil "supportMarkerDestination"}) exitWith {
+if (!(supportType in ["SMOKE", "FLARE", "EMP"]) && {isNil "supportMarkerDestination"}) exitWith {
     [
 		localize "STR_notifiers_fail_type",
 		localize "STR_notifiers_support_header",  
@@ -133,6 +133,7 @@ if (_exit) exitWith {
 };
 
 switch (supportType) do {
+    case ("EMP");
     case ("SUPPLY");
     case ("SMOKE");
     case ("FLARE");
@@ -168,6 +169,9 @@ switch (supportType) do {
 [] call SCRT_fnc_ui_updateSupportMenu;
 
 switch (true) do {
+    case (supportType isEqualTo "EMP"): {
+        [] spawn SCRT_fnc_support_emp;
+    };
     case (supportType isEqualTo "SMOKE"): {
         [] spawn SCRT_fnc_support_smokeBarrage;
     };

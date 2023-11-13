@@ -753,6 +753,7 @@ class CfgFunctions
         class TCE {
             file = QPATHTOFOLDER(functions\TCE);
             class vehicleRigSystem {};
+            class empBlast {};
         };
     };
 };
