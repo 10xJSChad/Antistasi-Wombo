@@ -1,0 +1,28 @@
+{
+	"title": "Antistasi Ultimate Modded",
+	"name": "A3UMOD",
+	"author": "Not Only The Antistasi Ultimate Dev Team",
+	"website": "https://antistasi.de/",
+	"version": "2.5.4",
+	"buildPath": "build",
+	"privateKey": "",
+	"serverDirs": [],
+	"serverUse32bit": false,
+	"clientDirs": [ 
+        "A3A/addons/config_fixes",
+        "A3A/addons/core",
+        "A3A/addons/events",
+        "A3A/addons/garage",
+        "A3A/addons/gui",
+        "A3A/addons/hals",
+        "A3A/addons/jeroen_arsenal",
+        "A3A/addons/logistics",
+        "A3A/addons/maps",
+        "A3A/addons/patcom",
+        "A3A/addons/scrt",
+        "A3A/addons/ultimate"
+    ],
+	"clientMods": [],
+	"ftpConnection": {},
+    "steamPath": ""
+}
