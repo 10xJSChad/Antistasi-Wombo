@@ -1,9 +1,10 @@
-params ["_unit"];
 
+
+params ["_unit"];
 
 TCE_fn_getLights = {
 	params ["_unit"];
-	private _lights = [];
+	private _lights  = [];
 
 	{
 		if ((lightIsOn _x) in ["ON", "AUTO"]) then {
@@ -24,7 +25,7 @@ TCE_fn_flickerLights = {
 		_x setVariable ["TCE_flickerEndState", _endState];
 
 		_x spawn {
-			private _endState =  _this getVariable "TCE_flickerEndState";
+			private _endState  =  _this getVariable "TCE_flickerEndState";
 
 			if (_endState isEqualTo "RESTORE") then {
 				_endState = _this getVariable "TCE_initialLightState";
@@ -57,9 +58,9 @@ TCE_fn_storeLightStates = {
 
 
 TCE_fn_getSparkSound = {
-	private _sounds = ["a3\sounds_f\sfx\special_sfx\sparkles_wreck_1.wss",
-					   "a3\sounds_f\sfx\special_sfx\sparkles_wreck_2.wss",
-					   "a3\sounds_f\sfx\special_sfx\sparkles_wreck_3.wss"];
+	private _sounds  = ["a3\sounds_f\sfx\special_sfx\sparkles_wreck_1.wss",
+					  "a3\sounds_f\sfx\special_sfx\sparkles_wreck_2.wss",
+					  "a3\sounds_f\sfx\special_sfx\sparkles_wreck_3.wss"];
 
 	_sounds call BIS_fnc_selectRandom;
 };
@@ -67,7 +68,8 @@ TCE_fn_getSparkSound = {
 
 TCE_fn_explosionLightSequence = {
 	params ["_unit"];
-	_light = "#lightpoint" createVehicle position _unit;
+
+	private _light  = "#lightpoint" createVehicle position _unit;
 	_light setPosWorld getPosWorld _unit;
 
 	_light setLightAmbient [0.25,0.5,1];  
@@ -76,8 +78,8 @@ TCE_fn_explosionLightSequence = {
 	_light setLightIntensity 0;  
 
 	_light spawn {
-		private _intensity = 0;
-		private _attenuation = 200;
+		private _intensity  = 0;
+		private _attenuation  = 200;
 
 		while { _intensity < 50 } do {
 			_this setLightIntensity _intensity;
@@ -104,7 +106,7 @@ TCE_fn_explosionLightSequence = {
 
 TCE_fn_getNearbyUnits = {
 	params ["_unit"];
-	private _nearbyUnits = [];
+	private _nearbyUnits  = [];
 
 	{
 		_nearbyUnits pushBack _x;
@@ -132,17 +134,19 @@ TCE_fn_setUnitsJammed = {
 
 TCE_fn_empSequence = {
 	params ["_unit"];
-	
+	systemChat "Starting EMP sequence" ;
+
+
 	sleep 1;
-	private _lights = [_unit] call TCE_fn_getLights;
-	private _units = [_unit] call TCE_fn_getNearbyUnits;
+	private _lights  = [_unit] call TCE_fn_getLights;
+	private _nearbyUnits  = [_unit] call TCE_fn_getNearbyUnits;
 
 	playSound3D ["A3\Sounds_f\sfx\explosion1.wss", _unit, false, getPosASL _unit, 2, 1, 0];
 	sleep 0.4;
 	_unit call TCE_fn_explosionLightSequence;
 	sleep 0.5;
 	
-	[_units, true] remoteExec ["TCE_fn_setUnitsJammed", 0];
+	[_nearbyUnits, true] remoteExec ["TCE_fn_setUnitsJammed", 0];
 	[_lights] call TCE_fn_storeLightStates;
 
 	[_lights, 1, "ON"] call TCE_fn_flickerLights;
@@ -161,10 +165,9 @@ TCE_fn_empSequence = {
 
 
 	sleep 600;
-	[_units, false] remoteExec ["TCE_fn_setUnitsJammed", 0];
+	[_nearbyUnits, false] remoteExec ["TCE_fn_setUnitsJammed", 0];
 	[_lights, 1, "RESTORE"] remoteExec ["TCE_fn_flickerLights", 0];
 	
 };
-
 
 _unit call TCE_fn_empSequence;
