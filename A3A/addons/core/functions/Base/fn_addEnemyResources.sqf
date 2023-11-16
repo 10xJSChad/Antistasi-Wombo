@@ -8,7 +8,7 @@ Environment: Scheduled or unscheduled
 
 Arguments:
     <SCALAR> Positive or negative count of resources to add
-    <SIDE> Side of enemy faction to adjust
+    <SIDE> Side of enemy faction to adjust 
     <STRING> Resource pool type, currently "attack", "defence" or "legacy"
 */
 #include "..\..\script_component.hpp"
