@@ -25,6 +25,7 @@
     } while (0)
 
 
+
 char* wine_path       = NULL;
 char* a3_addonbuilder = NULL;
 
@@ -79,7 +80,6 @@ char* get_prefix(char* addon_path) {
 
     if (dir == NULL)
         EXIT_WITH("Failed to open directory: %s", addon_path);
-
 
     while (entry = readdir(dir)) {
         if (str_eq(entry->d_name, "$PBOPREFIX$")) {
