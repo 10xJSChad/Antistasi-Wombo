@@ -2,6 +2,16 @@ This is a modification of Antistasi intended to be used by myself and whoever I 
 I do not care if you have problems with it. <br>
 Feel free to use it.
 
+There are some additional tools present in ./src, this is what they do:
+* a3builder: builds addons, linux only.
+* preprocessor: preprocesses sqf files, this is separate from and incompatible with <br>
+the standard Arma 3 preprocessor. You shouldn't use this unless you're prepared to <br>
+rip your hair out, it's very opinionated.
+
+Additionally, src/antistasi-wombo contains the scripts that need to be ran through the <br>
+preprocessor, if you change these, you have to run the preprocessor afterwards.
+
+
 ```
 Antistasi Wombo Edition
 -----------------------
