@@ -236,12 +236,16 @@ void read_config(void) {
     config_file = path_join(config_dir, "a3builder");
 
     if (access(config_file, F_OK) == -1) {
-        printf("Config file not found: %s\n", config_file);
-        printf("Create it and add the following content:\n");
-        printf("wine=<path to wine>\n");
-        printf("addonbuilder=<path to AddonBuilder.exe>\n");
-        printf("\nDo not put the paths in quotes.\n");
-        printf("Good luck, if you get it wrong, you're on your own.\n");
+        printf("\nConfig file not found: %s\n\n", config_file);
+
+        printf(
+            "Create it with the following content:\n"
+            "wine=<path to wine>\n"
+            "addonbuilder=<path to AddonBuilder.exe>\n\n"
+            "Do not put the paths in quotes.\n"
+            "Good luck, if you get it wrong, you're on your own.\n"
+        );
+
         exit(1);
     }
 
