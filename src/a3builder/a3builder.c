@@ -6,15 +6,15 @@
  */
 
 
+#include <dirent.h>
+#include <fcntl.h>
+#include <libgen.h>
+#include <linux/limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <dirent.h>
 #include <string.h>
-#include <unistd.h>
 #include <sys/stat.h>
-#include <linux/limits.h>
-#include <libgen.h>
-#include <fcntl.h>
+#include <unistd.h>
 
 
 #define EXIT_WITH(...) \
@@ -109,10 +109,8 @@ long get_addon_last_modified(char* path, long* timestamp) {
     DIR* dir = opendir(path);
     struct dirent* entry;
 
-    if (timestamp == NULL) {
-        timestamp = malloc(sizeof(long));
-        *timestamp = 0;
-    }
+    if (timestamp == NULL)
+        timestamp = calloc(1, sizeof(long));
 
     if (dir == NULL)
         EXIT_WITH("Failed to open directory: %s", path);
@@ -213,13 +211,13 @@ void build_all_addons(char* path, char* build_path) {
     closedir(dir);
 }
 
+
 char* read_line(char* str) {
     char buf[PATH_MAX] = {0};
     size_t i = 0;
 
-    while (*str && *str != '\n') {
+    while (*str && *str != '\n')
         buf[i++] = *(str++);
-    }
 
     return strdup(buf);
 }

@@ -51,6 +51,7 @@ private:
     int            scope_level = 0;
     string         path_dest;
     string         path_dir;
+    vector<string> imports;
 
 
     string peek_prev(void) {
@@ -438,7 +439,8 @@ private:
             /* tokenize the file */
             Tokenizer tokenizer;
             vector<string> imported_tokens = tokenizer.tokenize(path_join(path_dir, src));
-            
+            imports.push_back(path_join(path_dir, src));
+
             /* insert the tokens */
             tokens.insert(tokens.begin() + index, imported_tokens.begin(), imported_tokens.end());
             back();
@@ -469,6 +471,7 @@ public:
         string result;
         Tokenizer tokenizer;        
         string token;
+
 
         tokens = tokenizer.tokenize(filename);
         path_dir = absolute_path(filename).substr(0, absolute_path(filename).find_last_of("/\\"));
@@ -536,6 +539,11 @@ public:
 
         return path_join(path_dir, path_dest);
     }
+
+
+    vector<string> imported_files(void) {
+        return imports;
+    }
 };
 
 
@@ -559,6 +567,28 @@ int main(int argc, char** argv) {
     for (string filename : filenames) {
         Preprocessor preprocessor;
         string code = preprocessor.preprocess(filename, debug);
+
+        if (file_exists(preprocessor.dest())) {
+            filesystem::file_time_type dest_timestamp = file_timestamp(preprocessor.dest());
+            filesystem::file_time_type src_timestamp  = file_timestamp(filename);
+
+            for (string path : preprocessor.imported_files()) {
+                filesystem::file_time_type import_timestamp = file_timestamp(path);
+                if (import_timestamp > dest_timestamp) {
+                    cout << "Preprocessing " << filename << " (import was changed)" << endl;
+                    goto jump_to_write;
+                }
+            }
+
+            if (dest_timestamp > src_timestamp) {
+                cout << "Skipping " << filename << " (up to date)" << endl;
+                continue;
+            }
+        }
+
+        cout << "Preprocessing " << filename << endl;
+
+jump_to_write:
         write_file(preprocessor.dest(), code);
     }
 

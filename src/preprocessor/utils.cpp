@@ -48,3 +48,13 @@ string absolute_path(string path) {
 string path_join(string path1, string path2) {
     return path1 + "/" + path2;
 }
+
+
+bool file_exists(string path) {
+    return filesystem::exists(path);
+}
+
+
+filesystem::file_time_type file_timestamp(string path) {
+    return filesystem::last_write_time(path);
+}

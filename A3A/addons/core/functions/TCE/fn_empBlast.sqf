@@ -139,7 +139,7 @@ TCE_fn_setUnitsJammed = {
 
 TCE_fn_empSequence = {
 	params ["_unit"];
-	systemChat "Starting EMP sequence" ;
+	 ;
 
 
 	sleep 1;
