@@ -1,10 +1,21 @@
 #export "../../../A3A/addons/core/functions/TCE/fn_empBlast.sqf"
 #import "../include.sqf"
 
+
 params ["_unit"];
 #define EMP_RADIUS 200
 
-TCE_fn_getLights = {
+
+TCE_fn_getSparkSound = {
+	private sounds = ["a3\sounds_f\sfx\special_sfx\sparkles_wreck_1.wss",
+					  "a3\sounds_f\sfx\special_sfx\sparkles_wreck_2.wss",
+					  "a3\sounds_f\sfx\special_sfx\sparkles_wreck_3.wss"];
+
+	sounds call BIS_fnc_selectRandom;
+};
+
+
+private fn_getLights = {
 	params ["_unit"];
 	private lights = [];
 
@@ -19,7 +30,7 @@ TCE_fn_getLights = {
 };
 
 
-TCE_fn_flickerLights = {
+private fn_flickerLights = {
 	params ["_lights", "_duration", "_endState"];
 	
 	{
@@ -50,7 +61,7 @@ TCE_fn_flickerLights = {
 };
 
 
-TCE_fn_storeLightStates = {
+private fn_storeLightStates = {
 	params ["_lights"];
 
 	{
@@ -59,16 +70,7 @@ TCE_fn_storeLightStates = {
 };
 
 
-TCE_fn_getSparkSound = {
-	private sounds = ["a3\sounds_f\sfx\special_sfx\sparkles_wreck_1.wss",
-					  "a3\sounds_f\sfx\special_sfx\sparkles_wreck_2.wss",
-					  "a3\sounds_f\sfx\special_sfx\sparkles_wreck_3.wss"];
-
-	sounds call BIS_fnc_selectRandom;
-};
-
-
-TCE_fn_explosionLightSequence = {
+private fn_explosionLightSequence = {
 	params ["_unit"];
 
 	private light = "#lightpoint" createVehicle position _unit;
@@ -106,7 +108,7 @@ TCE_fn_explosionLightSequence = {
 };
 
 
-TCE_fn_getNearbyUnits = {
+private fn_getNearbyUnits = {
 	params ["_unit"];
 	private nearbyUnits = [];
 
@@ -119,7 +121,7 @@ TCE_fn_getNearbyUnits = {
 };
 
 
-TCE_fn_setUnitsJammed = {
+private fn_setUnitsJammed = {
 	params ["_units", "_state"];
 	
 	{
@@ -127,49 +129,49 @@ TCE_fn_setUnitsJammed = {
 
 		if ((_state isEqualTo true) && (side _x in [west, east])) then {
 			_x setCombatMode "RED";
-			_x setBehaviour "AWARE";
+			_x setBehaviour  "AWARE";
 		};
 
 	} forEach _units;
 };
 
 
-TCE_fn_empSequence = {
+private fn_empSequence = {
 	params ["_unit"];
 	DEBUG_PRINT "Starting EMP sequence";
 
 
 	sleep 1;
-	private lights = [_unit] call TCE_fn_getLights;
-	private nearbyUnits = [_unit] call TCE_fn_getNearbyUnits;
+	private lights = [_unit] call fn_getLights;
+	private nearbyUnits = [_unit] call fn_getNearbyUnits;
 
 	playSound3D ["A3\Sounds_f\sfx\explosion1.wss", _unit, false, getPosASL _unit, 2, 1, 0];
 	sleep 0.4;
-	_unit call TCE_fn_explosionLightSequence;
+	_unit call fn_explosionLightSequence;
 	sleep 0.5;
 	
-	[nearbyUnits, true] remoteExec ["TCE_fn_setUnitsJammed", 0];
-	[lights] call TCE_fn_storeLightStates;
+	[nearbyUnits, true] call fn_setUnitsJammed;
+	[lights] call fn_storeLightStates;
 
-	[lights, 1, "ON"] call TCE_fn_flickerLights;
+	[lights, 1, "ON"] call fn_flickerLights;
 	sleep 1;
-	[lights, 2, "ON"] call TCE_fn_flickerLights;
+	[lights, 2, "ON"] call fn_flickerLights;
 	sleep 2;
-	[lights, 1, "OFF"] call TCE_fn_flickerLights;
+	[lights, 1, "OFF"] call fn_flickerLights;
 	sleep 1;
-	[lights, 1, "ON"] call TCE_fn_flickerLights;
+	[lights, 1, "ON"] call fn_flickerLights;
 	sleep 0.5;
-	[lights, 1, "OFF"] call TCE_fn_flickerLights;
+	[lights, 1, "OFF"] call fn_flickerLights;
 	sleep 0.5;
-	[lights, 7, "ON"] call TCE_fn_flickerLights;
+	[lights, 7, "ON"] call fn_flickerLights;
 	sleep 2;
-	[lights, 1, "OFF"] remoteExec ["TCE_fn_flickerLights", 0];
+	[lights, 1, "OFF"] call fn_flickerLights;
 
 
 	sleep 600;
-	[nearbyUnits, false] remoteExec ["TCE_fn_setUnitsJammed", 0];
-	[lights, 1, "RESTORE"] remoteExec ["TCE_fn_flickerLights", 0];
+	[nearbyUnits, false] call fn_setUnitsJammed;
+	[lights, 1, "RESTORE"] call fn_flickerLights;
 	
 };
 
-_unit call TCE_fn_empSequence;
+[_unit] call fn_empSequence; 

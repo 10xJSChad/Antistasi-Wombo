@@ -257,6 +257,12 @@ A3A_startupState = "completed"; publicVariable "A3A_startupState";
 [] spawn A3A_fnc_garbageCleanerTracker;             // 5-minute loop
 [] spawn SCRT_fnc_rivals_activityUpdateLoop;
 [] spawn SCRT_fnc_rivals_eventLoop;
+
+// GAMERARMY: factory overhaul
+0 spawn {
+    [10] call A3A_fnc_productionHandler;
+};
+
 if (areRandomEventsEnabled) then {
     [] spawn SCRT_fnc_encounter_gameEventLoop;
 };

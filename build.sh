@@ -15,6 +15,12 @@ fi
 
 
 find "$wombo_dir" -type f -name "*.sqf" -exec "$preprocessor" "{}" \;
+
+if [ "$1" = "-p" ]
+then
+	exit 0;
+fi
+
 "$a3builder" "$addons_dir" "$build_dir"
 
 

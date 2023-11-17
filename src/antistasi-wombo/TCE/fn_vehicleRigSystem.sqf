@@ -1,10 +1,12 @@
 #export "../../../A3A/addons/core/functions/TCE/fn_vehicleRigSystem.sqf"
 #import "../include.sqf"
 
+
 TCE_explosivesInInv = [];
 TCE_explosives = ["IEDLandSmall_Remote_Mag", "IEDUrbanSmall_Remote_Mag", "rhs_ec75_mag", "rhs_ec75_sand_mag", "rhssaf_tm100_mag", "rhsusf_m112_mag",
 "DemoCharge_Remote_Mag", "rhs_charge_M2tet_x2_mag", "rhssaf_tm200_mag", "rhs_ec200_mag", "rhs_ec200_sand_mag",
 "SatchelCharge_Remote_Mag", "IEDLandBig_Remote_Mag", "IEDUrbanBig_Remote_Mag", "rhsusf_m112x4_mag", "rhs_ec400_mag", "rhs_ec400_sand_mag", "rhssaf_tm500_mag"];
+
 
 TCE_fn_detonateVehicleBomb = {
 	params ["_veh"];
@@ -31,11 +33,11 @@ TCE_fn_detonateVehicleBomb = {
 TCE_fn_remoteDetonateVehicleBomb = {
 	// addAction param, see TCE_fn_rigVehicle for more info
 	private veh = _this[3][0]; 
-	private action = _this[2];
+	private detonateAction = _this[2];
 	
 	veh call TCE_fn_detonateVehicleBomb;
 
-	player removeAction _action;
+	player removeAction detonateAction;
 	call TCE_fn_updateVehicleActions;
 };
 
@@ -95,12 +97,12 @@ TCE_fn_validForRigging = {
 	private hostilesInside = false;
 
 	{
-		if (alive _x && side _x != side player) then {
+		if (alive _x && {side _x != side player}) then {
 			hostilesInside = true;
 		};
 	} forEach crew _veh;
 
-	if (_veh call TCE_fn_isActuallyVehicle && !hostilesInside && alive _veh && isNil {_veh getVariable "TCE_vehicleExplosive"}) exitWith {
+	if (_veh call TCE_fn_isActuallyVehicle && {!hostilesInside && {alive _veh && isNil {_veh getVariable "TCE_vehicleExplosive"}}}) exitWith {
 		true;
 	};
 	
@@ -143,7 +145,7 @@ TCE_fn_updateVehicleActions = {
 		};
 		
 		private actions = [];
-		if ((veh call TCE_fn_validForRigging) && (isNull objectParent player)) then {
+		if ((veh call TCE_fn_validForRigging) && {isNull objectParent player}) then {
 			{
 				private name = getText (configFile >> "CfgMagazines" >> _x >> "DisplayName");
 				actions pushBack (veh addAction [format ["Rig with %1", _name], { call TCE_fn_rigVehicle; }, [veh, _x], 5.1, true, true, "", "true", 3]);
@@ -182,8 +184,4 @@ TCE_fn_init = {
 };
 
 
-if (hasInterface) then {
-	0 spawn {
-		call TCE_fn_init;
-	};
-};
+call TCE_fn_init;

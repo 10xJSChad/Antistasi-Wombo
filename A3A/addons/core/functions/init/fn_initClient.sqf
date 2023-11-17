@@ -51,8 +51,14 @@ player addEventHandler ["SlotItemChanged", {
 
 }];
 
-// GAMERARMY: car bombs
-call A3A_fnc_vehicleRigSystem;
+if (hasInterface) then {
+    // GAMERARMY: car bombs
+    0 spawn {
+        call A3A_fnc_vehicleRigSystem;
+    };
+
+    call A3A_fnc_productionActionMenu;
+};
 
 if !(isServer) then {
     call A3A_fnc_initVarCommon;

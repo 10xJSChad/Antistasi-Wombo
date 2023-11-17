@@ -759,6 +759,8 @@ class CfgFunctions
         class FactoryOverhaul {
             file = QPATHTOFOLDER(functions\FactoryOverhaul);
             class productionHandler {};
+            class productionActionMenu {};
+            class productionUnlocks {};
         };
     };
 };

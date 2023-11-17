@@ -5,10 +5,12 @@
 
 
 
+
 TCE_explosivesInInv = [];
 TCE_explosives = ["IEDLandSmall_Remote_Mag", "IEDUrbanSmall_Remote_Mag", "rhs_ec75_mag", "rhs_ec75_sand_mag", "rhssaf_tm100_mag", "rhsusf_m112_mag",
 "DemoCharge_Remote_Mag", "rhs_charge_M2tet_x2_mag", "rhssaf_tm200_mag", "rhs_ec200_mag", "rhs_ec200_sand_mag",
 "SatchelCharge_Remote_Mag", "IEDLandBig_Remote_Mag", "IEDUrbanBig_Remote_Mag", "rhsusf_m112x4_mag", "rhs_ec400_mag", "rhs_ec400_sand_mag", "rhssaf_tm500_mag"];
+
 
 TCE_fn_detonateVehicleBomb = {
 	params ["_veh"];
@@ -35,11 +37,11 @@ TCE_fn_detonateVehicleBomb = {
 TCE_fn_remoteDetonateVehicleBomb = {
 
 	private _veh  = _this select 3 select 0; 
-	private _action  = _this select 2;
+	private _detonateAction  = _this select 2;
 	
 	_veh call TCE_fn_detonateVehicleBomb;
 
-	player removeAction _action;
+	player removeAction _detonateAction;
 	call TCE_fn_updateVehicleActions;
 };
 
@@ -99,12 +101,12 @@ TCE_fn_validForRigging = {
 	private _hostilesInside  = false;
 
 	{
-		if (alive _x && side _x != side player) then {
+		if (alive _x && {side _x != side player}) then {
 			_hostilesInside = true;
 		};
 	} forEach crew _veh;
 
-	if (_veh call TCE_fn_isActuallyVehicle && !_hostilesInside && alive _veh && isNil {_veh getVariable "TCE_vehicleExplosive"}) exitWith {
+	if (_veh call TCE_fn_isActuallyVehicle && {!_hostilesInside && {alive _veh && isNil {_veh getVariable "TCE_vehicleExplosive"}}}) exitWith {
 		true;
 	};
 	
@@ -147,7 +149,7 @@ TCE_fn_updateVehicleActions = {
 		};
 		
 		private _actions  = [];
-		if ((_veh call TCE_fn_validForRigging) && (isNull objectParent player)) then {
+		if ((_veh call TCE_fn_validForRigging) && {isNull objectParent player}) then {
 			{
 				private _name  = getText (configFile >> "CfgMagazines" >> _x >> "DisplayName");
 				_actions pushBack (_veh addAction [format ["Rig with %1", _name], { call TCE_fn_rigVehicle; }, [_veh, _x], 5.1, true, true, "", "true", 3]);
@@ -186,8 +188,4 @@ TCE_fn_init = {
 };
 
 
-if (hasInterface) then {
-	0 spawn {
-		call TCE_fn_init;
-	};
-};
+call TCE_fn_init;
