@@ -1,15 +1,15 @@
-#define DEBUG_PRINTF 		systemChat format
-#define ARSENAL_BOX  		boxX
+#define DEBUG_PRINTF        systemChat format
+#define ARSENAL_BOX         boxX
 
-#define BASE_PROGRESS 		10
-#define BASE_ITEM 			"arifle_AKM_F"
-#define BASE_AMOUNT 		1
+#define BASE_PROGRESS       10
+#define BASE_ITEM           "arifle_AKM_F"
+#define BASE_AMOUNT         1
 
-#define IDX_FACTORY 		0
-#define IDX_ITEM   			1
-#define IDX_AMOUNT 			2
-#define IDX_PROGRESS   		3
-#define IDX_PROGRESSMAX 	4
+#define IDX_FACTORY         0
+#define IDX_ITEM            1
+#define IDX_AMOUNT          2
+#define IDX_PROGRESS        3
+#define IDX_PROGRESSMAX     4
 
 
 params ["_tickRate"];
