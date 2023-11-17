@@ -755,5 +755,10 @@ class CfgFunctions
             class vehicleRigSystem {};
             class empBlast {};
         };
+
+        class FactoryOverhaul {
+            file = QPATHTOFOLDER(functions\FactoryOverhaul);
+            class productionHandler {};
+        };
     };
 };
