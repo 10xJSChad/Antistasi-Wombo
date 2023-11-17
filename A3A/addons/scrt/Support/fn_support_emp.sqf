@@ -20,4 +20,4 @@ publicVariable "isSupportMarkerPlacingLocked";
 
 // There's a juuuge sleep here, so let's make sure we're not waiting for it to finish
 // before handling the marker.
-_smokeRound remoteExec ["A3A_fnc_empBlast", 0];
+_smokeRound call A3A_fnc_empBlast;

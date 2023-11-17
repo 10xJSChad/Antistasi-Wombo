@@ -10,13 +10,7 @@
 
 
 
-
 FO_addedActions = [];
-FO_unlockedItems = [
-	["rhs_weap_l1a1_wood", 1, 5, "rhs_mag_20Rnd_762x51_m80_fnfal"],
-	["rhsusf_weap_MP7A2", 1, 5, "rhsusf_mag_40Rnd_46x30_FMJ"],
-	["V_PlateCarrier1_rgr", 1, 5, ""]
-];
 
 
 FO_fn_setFactoryProductionAction = {
@@ -29,19 +23,18 @@ FO_fn_setFactoryProductionAction = {
 
 	[_factory, _item, _amount, _ticks, _magazine] remoteExec ["FO_fn_setFactoryProduction", 2];
 	systemChat format ["%1 has started producing %2", [_factory] call FO_fn_getNearestTown, _itemName];
-	
+
 	call FO_fn_clearProductionActions;
 };
 
 
 FO_fn_addSetProductionActions = {
 	private _factory  = _this select 3 select 0;
-
 	call FO_fn_clearProductionActions;
 	{
 		private _itemName  = getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName");
 		FO_addedActions pushBack (player addAction [_itemName, {call FO_fn_setFactoryProductionAction}, [_x select 0, _x select 1, _x select 2, _x select 3, _factory]]);
-	} forEach FO_unlockedItems;
+	} forEach call FO_fn_getUnlockedItems;
 
 	FO_addedActions pushBack (player addAction ["Back", {call FO_fn_createFactoryManagementActions}, [_factory]]);
 };
@@ -84,6 +77,7 @@ FO_fn_createFactorySelection = {
 private _fn_init  = {
 	removeAllActions player;
 	[0] call A3A_fnc_productionHandler;
+	call A3A_fnc_productionUnlocks;
 	boxX addAction ["Factory Management", {call FO_fn_createFactorySelection}, nil, 1, true, true, "", "true", 3, true, "", ""];
 };
 
