@@ -90,7 +90,30 @@ private _civUniforms = [
     "U_C_Scientist",
     "U_C_Uniform_Scientist_02_formal_F",
     "U_C_Uniform_Scientist_02_F",
-    "U_C_Uniform_Scientist_01_F"
+    "U_C_Uniform_Scientist_01_F",
+    "CUP_O_TKI_Khet_Jeans_04",
+    "CUP_O_TKI_Khet_Jeans_02",
+    "CUP_O_TKI_Khet_Jeans_01",
+    "CUP_O_TKI_Khet_Jeans_03",
+    "CUP_O_TKI_Khet_Partug_04",
+    "CUP_O_TKI_Khet_Partug_02",
+    "CUP_O_TKI_Khet_Partug_01",
+    "CUP_O_TKI_Khet_Partug_07",
+    "CUP_O_TKI_Khet_Partug_08",
+    "CUP_O_TKI_Khet_Partug_05",
+    "CUP_O_TKI_Khet_Partug_06",
+    "CUP_O_TKI_Khet_Partug_03",
+    "CUP_U_C_Citizen_02",
+    "CUP_U_C_Citizen_01",
+    "CUP_U_C_Citizen_04",
+    "CUP_U_C_Citizen_03",
+    "CUP_U_C_Rocker_01",
+    "CUP_U_C_Rocker_02",
+    "CUP_U_C_Rocker_03",
+    "CUP_U_C_Rocker_04",
+    "CUP_U_C_AirMedic_yellow_01",
+    "CUP_U_C_Tracksuit_02",
+    "CUP_U_C_Tracksuit_01"
 ];
 
 private _pressUniforms = [
@@ -114,7 +137,6 @@ if (_hasLawsOfWar) then {
 };
 
 ["uniforms", _civUniforms + _pressUniforms + _workerUniforms + _dlcUniforms] call _fnc_saveToTemplate;
-
 private _civhats = [
     "H_Bandanna_blu",
     "H_Bandanna_cbr",
@@ -135,7 +157,19 @@ private _civhats = [
     "H_Cap_tan",
     "H_StrawHat",
     "H_StrawHat_dark",
-    "H_Hat_checker"
+    "H_Hat_checker",
+    "CUP_H_TKI_SkullCap_01",
+    "CUP_H_TKI_SkullCap_02",
+    "CUP_H_TKI_SkullCap_03",
+    "CUP_H_TKI_SkullCap_04",
+    "CUP_H_TKI_SkullCap_05",
+    "CUP_H_TKI_SkullCap_06",
+    "CUP_H_TKI_Lungee_Open_01",
+    "CUP_H_TKI_Lungee_Open_02",
+    "CUP_H_TKI_Lungee_Open_03",
+    "CUP_H_TKI_Lungee_Open_04",
+    "CUP_H_TKI_Lungee_Open_05",
+    "CUP_H_TKI_Lungee_Open_06"
 ];
 
 ["headgear", _civHats] call _fnc_saveToTemplate;

@@ -11,20 +11,20 @@ private _hasLawsOfWar = "orange" in A3A_enabledDLC;
 ["flagMarkerType", "flag_EAF"] call _fnc_saveToTemplate;
 
 ["vehiclesBasic", ["I_G_Quadbike_01_F"]] call _fnc_saveToTemplate;
-["vehiclesLightUnarmed", ["rhsgref_nat_uaz_open"]] call _fnc_saveToTemplate;
+["vehiclesLightUnarmed", ["rhsgref_nat_uaz_open", "CUP_I_Hilux_armored_unarmed_TK"]] call _fnc_saveToTemplate;
 ["vehiclesLightArmed", ["rhsgref_nat_uaz_dshkm"]] call _fnc_saveToTemplate;
 ["vehiclesTruck", ["rhsgref_nat_ural_open"]] call _fnc_saveToTemplate;
 ["vehiclesAT", ["rhsgref_nat_uaz_spg9"]] call _fnc_saveToTemplate;
 ["vehiclesAA", ["rhsgref_nat_ural_Zu23"]] call _fnc_saveToTemplate;
 
-["vehiclesBoat", ["I_C_Boat_Transport_02_F"]] call _fnc_saveToTemplate;
+["vehiclesBoat", ["CUP_B_RHIB_HIL"]] call _fnc_saveToTemplate;
 
 ["vehiclesPlane", ["RHS_AN2"]] call _fnc_saveToTemplate;
 
-["vehiclesCivCar", ["C_Offroad_01_F"]] call _fnc_saveToTemplate;
+["vehiclesCivCar", ["C_SUV_01_F"]] call _fnc_saveToTemplate;
 ["vehiclesCivTruck", ["RHS_Ural_Open_Civ_03"]] call _fnc_saveToTemplate;
-["vehiclesCivHeli", ["RHS_Mi8t_civilian"]] call _fnc_saveToTemplate;
-["vehiclesCivBoat", ["C_Rubberboat"]] call _fnc_saveToTemplate;
+["vehiclesCivHeli", ["RHS_Mi8t_civilian", "C_Heli_Light_01_civil_F"]] call _fnc_saveToTemplate;
+["vehiclesCivBoat", ["C_Rubberboat", "C_Boat_Transport_02_F"]] call _fnc_saveToTemplate;
 
 ["staticMGs", ["rhsgref_nat_DSHKM"]] call _fnc_saveToTemplate;
 ["staticAT", ["rhsgref_nat_SPG9"]] call _fnc_saveToTemplate;
@@ -114,24 +114,28 @@ private _hasLawsOfWar = "orange" in A3A_enabledDLC;
 //  Rebel Starting Gear  //
 ///////////////////////////
 
+// GAMERARMY: starter gear
 private _initialRebelEquipment = [
-    "rhs_weap_savz61_folded", "rhs_weap_savz61", "rhsgref_10rnd_765x17_vz61", "rhsgref_20rnd_765x17_vz61",
-    "rhs_weap_Izh18", "rhsgref_1Rnd_00Buck", "rhsgref_1Rnd_Slug",
-    "rhs_weap_kar98k", "rhsgref_5Rnd_792x57_kar98k",
-    "rhs_weap_panzerfaust60",
-    "rhs_grenade_nbhgr39B_mag", "rhs_grenade_sthgr24_mag",
+    // mixing the cup shotgun with rhs ammo will make the arsenal display
+    // that it has no ammo, but it will still work fine.
+    "CUP_sgun_slamfire", "rhsgref_1Rnd_00Buck",
+    "rhsusf_weap_glock17g4", "rhsusf_mag_17Rnd_9x19_JHP",
     ["IEDUrbanSmall_Remote_Mag", 10], ["IEDLandSmall_Remote_Mag", 10], ["IEDUrbanBig_Remote_Mag", 3], ["IEDLandBig_Remote_Mag", 3],
-    "B_FieldPack_oli",
+    "B_FieldPack_oli", "B_FieldPack_blk", 
+    "B_TacticalPack_oli", "B_TacticalPack_blk",
     "Binocular",
     "rhs_weap_rsp30_white","rhs_mag_rsp30_white",
     "rhs_weap_rsp30_green","rhs_mag_rsp30_green",
     "rhs_weap_rsp30_red", "rhs_mag_rsp30_red",
     "rhs_mag_nspd", "rhs_mag_nspn_yellow", "rhs_mag_nspn_green", "rhs_mag_nspn_red",
-    "rhsgref_chicom","V_BandollierB_oli"
+    "rhsgref_chicom","V_BandollierB_oli",
+    "CUP_V_I_Carrier_Belt", "CUP_V_I_Guerilla_Jacket", "CUP_V_I_RACS_Carrier_Rig_2", "CUP_V_I_RACS_Carrier_Rig_wdl_2",
+    "CUP_V_RUS_Smersh_New_Light", "CUP_V_OI_TKI_Jacket1_06", "CUP_V_OI_TKI_Jacket5_05", "CUP_V_OI_TKI_Jacket5_06", "CUP_V_OI_TKI_Jacket3_04",
+    "V_HarnessO_brn"
 ];
 
 private _backpacks = [];
-if (_hasLawsOfWar) then {
+if (true) then {
     _backpacks append [
         "B_Messenger_Black_F", 
         "B_Messenger_Coyote_F", 
@@ -155,18 +159,7 @@ _initialRebelEquipment append ["Chemlight_blue","Chemlight_green","Chemlight_red
 ["initialRebelEquipment", _initialRebelEquipment] call _fnc_saveToTemplate;
 
 private _rebUniforms = [
-    "rhsgref_uniform_alpenflage",
-    "rhsgref_uniform_gorka_1_f",
-    "rhsgref_uniform_3color_desert",
-    "rhsgref_uniform_dpm",
-    "rhsgref_uniform_dpm_olive",
-    "rhsgref_uniform_flecktarn",
-    "rhsgref_uniform_flecktarn_full",
-    "rhsgref_uniform_og107",
-    "rhsgref_uniform_og107_erdl",
-    "rhsgref_uniform_tigerstripe",
-    "rhsgref_uniform_woodland",
-    "rhsgref_uniform_woodland_olive"
+    "U_C_Poor_1"
 ];
 
 ["uniforms", _rebUniforms] call _fnc_saveToTemplate;

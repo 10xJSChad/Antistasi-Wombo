@@ -5,9 +5,10 @@
 FO_fn_getUnlockedItems = {
 	private unlockedItems = [];
 	private baseUnlocks = [
-		["rhs_weap_l1a1_wood",  1,  1, "rhs_mag_20Rnd_762x51_m80_fnfal"],
-		["rhsusf_weap_MP7A2",   1,  1, "rhsusf_mag_40Rnd_46x30_FMJ"],
-		["V_PlateCarrier1_rgr", 1,  1, ""]
+		["rhs_weap_savz61_folded",  1,  1, "rhsgref_20rnd_765x17_vz61"],
+		["rhs_weap_kar98k",   1,  1, "rhsgref_5Rnd_792x57_kar98k"],
+		["U_BG_Guerrilla_6_1", 1, 1, ""],
+		["V_I_G_resistanceLeader_F", 1, 1, ""]
 	];
 
 	unlockedItems append baseUnlocks;

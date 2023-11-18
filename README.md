@@ -2,6 +2,25 @@ This is a modification of Antistasi intended to be used by myself and whoever I 
 I do not care if you have problems with it. <br>
 Feel free to use it.
 
+
+Gameplay notes:
+* Wombostasi is intended to be played with **BOTH** CUP and RHS!
+It won't work well without both, it may not really work at all.
+That said, bad things will probably happen if you mix CUP and RHS factions, so configure
+your campaign around just one of the mods, but be sure to have both.
+
+* You should play this with people you trust to behave like decent human beings, because
+a lot of the default Antistasi behaviour of not trusting players (e.g. non-commander not 
+being allowed to withdraw funds) may be removed. I play with a small group, and that's
+what this mod is designed for.
+
+* Antistasi does a good job of supporting a large variety of gameplay altering
+mods, Wombostasi does not. Play with only CUP, RHS, and CBA you want to have a 
+stable experience.
+
+* Don't use ACE.
+
+
 There are some additional tools present in ./src, this is what they do:
 * a3builder: builds addons, linux only.
 * preprocessor: preprocesses sqf files, this is separate from and incompatible with <br>
@@ -66,6 +85,22 @@ Missions:
 
 - Completing a 'Kill the Traitor'  mission now lowers the occupant aggression. 
 - Completing a 'Kill the Official' mission now lowers the aggression of the target faction.
+
+
+Templates:
+- RHS NAPA:
+  - Starting gear:
+    - Added a bunch of CUP Takistani vests/uniforms
+    - Replaced all starting primaries with a CUP Slamfire Shotgun
+    - Replaced all starting secondaries with a Glock 17
+    - Other stuff and things.
+
+  - Vehicles:
+    - Replaced Offroad with SUV
+    - Replaced RHIB with RHIB (but with a gun!)
+    - Added Hilux Full Armor Mode
+    - Added civ RHIB
+    - Added M-900 Helicopter (civ little bird)
 
 
 Groups:
