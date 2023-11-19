@@ -31,6 +31,7 @@ FO_fn_GUI_addFactoriesToListbox = {
     
 };
 
+
 FO_fn_GUI_createFactoryTownPairs = {
     private _ownedFactories = []; // [_factory,townName];
 
@@ -81,18 +82,12 @@ FO_fn_GUI_lookupItemClassbyName = {
 };
 */
 
+
 FN_FO_GUI_clearLabels = {
     ctrlSetText [IDC_ITEM, ""];
     ctrlSetText [IDC_QTY, ""];
 };
 
-FN_FO_GUI_toggleProdButton = {
-    if (ctrlText IDC_STARTSTOP_BTN isEqualTo "Start Production") then {
-        ctrlSetText [IDC_STARTSTOP_BTN, "Stop Production"];
-    } else {
-        ctrlSetText [IDC_STARTSTOP_BTN, "Start Production"];
-    }
-};
 
 FN_FO_GUI_updateLabels = {
     params["_factoryStructure"];
@@ -105,11 +100,11 @@ FN_FO_GUI_updateLabels = {
             ctrlSetText [IDC_ITEM, _itemDisplayName];
             ctrlSetText [IDC_QTY, _qty];
 
-            [] call FN_FO_GUI_toggleProdButton;
+            ctrlSetText [IDC_STARTSTOP_BTN, "Stop Production"];
 
         } else {
             [] call FN_FO_GUI_clearLabels;
-            [] call FN_FO_GUI_toggleProdButton;
+            ctrlSetText [IDC_STARTSTOP_BTN, "Start Production"];
         };
 };
 
@@ -127,15 +122,12 @@ FN_FO_GUI_addEventHandlers = {
       
         // Select the town name in the GUI -> Convert it to factory name -> Get that factory's structure.
         private _ownedFactories = call FO_fn_GUI_createFactoryTownPairs;
-
         private _factoryID = [_ownedFactories, _selText] call FO_fn_GUI_lookupFactoryIDbyName;
-        
         systemChat format ["%1 factory selected, ID %2", _selText, _factoryID];
 
         // [factory, item, amount, progress, progressMax, magazine]
         // Get the data to display to the user.
         private _structure = _factoryID call FO_fn_getFactoryStructure;
-
         [_structure] call FN_FO_GUI_updateLabels;
 
     }];
@@ -169,7 +161,6 @@ FN_FO_GUI_addEventHandlers = {
 
                     ctrlSetText [IDC_ITEM, _itemName];
                     ctrlSetText [IDC_QTY, str(_x select 1)];
-
                     ctrlSetText [IDC_STARTSTOP_BTN, "Stop Production"];
 
                 };
@@ -195,5 +186,4 @@ FN_FO_GUI_addEventHandlers = {
 
 [] spawn FO_fn_GUI_addFactoriesToListbox;
 [] spawn FO_fn_GUI_addWeaponsToListbox;
-
 [] spawn FN_FO_GUI_addEventHandlers;
