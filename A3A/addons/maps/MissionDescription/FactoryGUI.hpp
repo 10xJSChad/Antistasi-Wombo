@@ -1,6 +1,5 @@
 //Exported via Arma Dialog Creator (https://github.com/kayler-renslow/arma-dialog-creator)
 
-#include "CustomControlClasses.h"
 class FactoryGUI
 {
 	idd = 6969;

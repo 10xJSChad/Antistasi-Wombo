@@ -34,14 +34,10 @@ FO_fn_GUI_addFactoriesToListbox = {
 FO_fn_GUI_createFactoryTownPairs = {
     private _ownedFactories = []; // [_factory,townName];
 
-    // Calls func to check whether the factory is owned by the Rebels, and adds it to the listbox.
     {
       _town = [_x] call FO_fn_getNearestTown;
-      // Push this to the array of [_factory,townName].
       _ownedFactories pushBack [_x,_town];
     } forEach call FO_fn_getOwnedFactories;
-    
-    //systemChat str _ownedFactories;
 
     _ownedFactories;
 
@@ -61,41 +57,69 @@ FO_fn_GUI_lookupFactoryIDbyName = {
 
     private _selectedFactoryFromTownname = "";
     {
-        if ((_x select 1) == _text) then {
+        if ((_x select 1) isEqualTo _text) then {
             _selectedFactoryFromTownname = _x select 0;
         };
     } forEach _factoryTownPairs;
-//systemChat str _selectedFactoryFromTownname;
 
-_selectedFactoryFromTownname;
+    _selectedFactoryFromTownname;
 };
 
-/////////////////////////////////////////// TODO
+
+/* TODO
 FO_fn_GUI_lookupItemClassbyName = {
     params ["_unlockedItemsArray","_displayName"];
 
     private _selectedItemClassname = "";
     {
-        if ((_x select 1) == _text) then {
+        if ((_x select 1) isEqualTo _text) then {
             _selectedItemClassname = _x select 0;
         };
     } forEach _factoryTownPairs;
-//systemChat str _selectedFactoryFromTownname;
 
-_selectedItemClassname;
+    _selectedItemClassname;
 };
-/////////////////////////////////////////// TODO
+*/
+
+FN_FO_GUI_clearLabels = {
+    ctrlSetText [IDC_ITEM, ""];
+    ctrlSetText [IDC_QTY, ""];
+};
+
+FN_FO_GUI_toggleProdButton = {
+    if (ctrlText IDC_STARTSTOP_BTN isEqualTo "Start Production") then {
+        ctrlSetText [IDC_STARTSTOP_BTN, "Stop Production"];
+    } else {
+        ctrlSetText [IDC_STARTSTOP_BTN, "Start Production"];
+    }
+};
+
+FN_FO_GUI_updateLabels = {
+    params["_factoryStructure"];
+
+        if (([_structure] call FO_fn_factoryIsProducing) isEqualTo true) then {
+            private _item = _structure select 1;
+            private _itemDisplayName = getText (configFile >> "CfgWeapons" >> _item >> "displayName");
+            private _qty = str (_structure select 2);
+
+            ctrlSetText [IDC_ITEM, _itemDisplayName];
+            ctrlSetText [IDC_QTY, _qty];
+
+            [] call FN_FO_GUI_toggleProdButton;
+
+        } else {
+            [] call FN_FO_GUI_clearLabels;
+            [] call FN_FO_GUI_toggleProdButton;
+        };
+};
 
 
 FN_FO_GUI_addEventHandlers = {
     private _display = findDisplay IDX_FACTORY_GUI;
     private _listBoxFactories = _display displayCtrl IDC_FACTORY_LIST;
-    private _StartStopButton = _display displayCtrl IDC_STARTSTOP_BTN;
+    private _startStopButton = _display displayCtrl IDC_STARTSTOP_BTN;
     private _exitButton = _display displayCtrl IDC_EXIT_BUTTON;
     
-    //systemChat "Selection changed";
-
-
     // Add the Selection Changed event handler to Owned Factories ListBox
     _listBoxFactories ctrlAddEventHandler ["LBSelChanged", {
         private _selIndex = lbCurSel IDC_FACTORY_LIST;
@@ -111,28 +135,13 @@ FN_FO_GUI_addEventHandlers = {
         // [factory, item, amount, progress, progressMax, magazine]
         // Get the data to display to the user.
         private _structure = _factoryID call FO_fn_getFactoryStructure;
-        //systemChat str _structure;
 
-        if (([_structure] call FO_fn_factoryIsProducing) isEqualTo true) then {
-            private _item = _structure select 1;
-            private _itemDisplayName = getText (configFile >> "CfgWeapons" >> _item >> "displayName");
-            private _qty = str (_structure select 2);
-            ctrlSetText [IDC_ITEM, _itemDisplayName];
-            ctrlSetText [IDC_QTY, _qty];
-
-            ctrlSetText [IDC_STARTSTOP_BTN, "Stop Production"];
-
-        } else {
-            ctrlSetText [IDC_ITEM, ""];
-            ctrlSetText [IDC_QTY, ""];
-            ctrlSetText [IDC_STARTSTOP_BTN, "Start Production"];
-        };
+        [_structure] call FN_FO_GUI_updateLabels;
 
     }];
 
         // Add the ButtonClick event handler to Start/Stop Production Button.
-    _StartStopButton ctrlAddEventHandler ["ButtonClick", {
-        systemChat "Button clicked";
+    _startStopButton ctrlAddEventHandler ["ButtonClick", {
 
         private _selIndex = lbCurSel IDC_FACTORY_LIST;
         private _selText = lbText [IDC_FACTORY_LIST, _selIndex];
@@ -150,12 +159,11 @@ FN_FO_GUI_addEventHandlers = {
                 private _itemName  = getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName");
                 private _selIndex = lbCurSel IDC_FACTORY_WEPS;
                 private _selText = lbText [IDC_FACTORY_WEPS, _selIndex];
-                if (_selText == _itemName) then {
+                if (_selText isEqualTo _itemName) then {
                     systemChat (_x select 0);
 
                     // Begin Production
-                    //params ["_factory", "_item", "_amount", "_ticks", "_magazine"];
-                    //systemChat str _factoryID;
+                    // Production params: ["_factory", "_item", "_amount", "_ticks", "_magazine"];
                     [_factoryID, _x select 0, _x select 1, _x select 2, _x select 3] call FO_fn_setFactoryProduction;
                     systemChat format ["Started production on %1 for %2 (%3)", _factoryID, _x select 1, _selText];
 
@@ -165,7 +173,6 @@ FN_FO_GUI_addEventHandlers = {
                     ctrlSetText [IDC_STARTSTOP_BTN, "Stop Production"];
 
                 };
-                    //systemChat format ["%1 %2 %3 %4", _x select 0, _x select 1,_x select 2,_x select 3];
             } forEach call FO_fn_getUnlockedItems;
 
 
