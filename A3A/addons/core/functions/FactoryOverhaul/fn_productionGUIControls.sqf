@@ -21,13 +21,10 @@ FO_fn_GUI_addFactoriesToListbox = {
     ctrlSetText [IDC_ITEM, ""];
     ctrlSetText [IDC_QTY, ""];
 
-    private _ownedFactories = call FO_fn_GUI_createFactoryTownPairs;
-
-    // Calls func to check whether the factory is owned by the Rebels, and adds it to the listbox.
     { 
       _town = _x select 1;
       lbAdd[IDC_FACTORY_LIST, _town];
-    } forEach _ownedFactories;
+    } forEach call FO_fn_GUI_createFactoryTownPairs;
     
 };
 
