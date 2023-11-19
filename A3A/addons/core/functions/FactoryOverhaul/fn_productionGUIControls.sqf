@@ -1,4 +1,3 @@
-//#include "fn_productionHandler.sqf"
 #include "fn_productionUnlocks.sqf"
 
 #define IDX_FACTORY_GUI     6969
@@ -80,13 +79,13 @@ FO_fn_GUI_lookupItemClassbyName = {
 */
 
 
-FN_FO_GUI_clearLabels = {
+FO_fn_GUI_clearLabels = {
     ctrlSetText [IDC_ITEM, ""];
     ctrlSetText [IDC_QTY, ""];
 };
 
 
-FN_FO_GUI_updateLabels = {
+FO_fn_GUI_updateLabels = {
     params["_factoryStructure"];
 
         if (([_structure] call FO_fn_factoryIsProducing) isEqualTo true) then {
@@ -100,13 +99,13 @@ FN_FO_GUI_updateLabels = {
             ctrlSetText [IDC_STARTSTOP_BTN, "Stop Production"];
 
         } else {
-            [] call FN_FO_GUI_clearLabels;
+            [] call FO_fn_GUI_clearLabels;
             ctrlSetText [IDC_STARTSTOP_BTN, "Start Production"];
         };
 };
 
 
-FN_FO_GUI_addEventHandlers = {
+FO_fn_GUI_addEventHandlers = {
     private _display = findDisplay IDX_FACTORY_GUI;
     private _listBoxFactories = _display displayCtrl IDC_FACTORY_LIST;
     private _startStopButton = _display displayCtrl IDC_STARTSTOP_BTN;
@@ -125,7 +124,7 @@ FN_FO_GUI_addEventHandlers = {
         // [factory, item, amount, progress, progressMax, magazine]
         // Get the data to display to the user.
         private _structure = _factoryID call FO_fn_getFactoryStructure;
-        [_structure] call FN_FO_GUI_updateLabels;
+        [_structure] call FO_fn_GUI_updateLabels;
 
     }];
 
@@ -183,4 +182,4 @@ FN_FO_GUI_addEventHandlers = {
 
 [] spawn FO_fn_GUI_addFactoriesToListbox;
 [] spawn FO_fn_GUI_addWeaponsToListbox;
-[] spawn FN_FO_GUI_addEventHandlers;
+[] spawn FO_fn_GUI_addEventHandlers;
