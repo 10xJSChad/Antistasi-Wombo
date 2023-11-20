@@ -58,7 +58,7 @@ if (hasInterface) then {
     };
 
     // GAMERARMY: Factory GUI Action
-    boxX addAction [format ["<img image='\A3\ui_f\data\map\mapcontrol\PowerSolar_CA.paa' size='1.6' shadow=2 /> <t>%1</t>", "Factory GUI"], {createDialog "FactoryGUI";}, 3];
+    [true] call A3A_fnc_productionActionMenu;
 };
 
 if !(isServer) then {

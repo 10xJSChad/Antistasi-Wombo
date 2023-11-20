@@ -14,6 +14,9 @@
 #define BASE_TICKS          5
 
 
+params ["_useGUI"];
+
+
 FO_addedActions = [];
 
 
@@ -79,11 +82,25 @@ FO_fn_createFactorySelection = {
 
 
 private fn_init = {
+	params ["_usingGUI"];
+
 	removeAllActions player;
 	[0] call A3A_fnc_productionHandler;
 	call A3A_fnc_productionUnlocks;
+
+	if (_usingGUI) exitWith {
+		ARSENAL_BOX addAction [format ["<img image='\A3\ui_f\data\map\mapcontrol\PowerSolar_CA.paa' size='1.6' shadow=2 /> <t>%1</t>", "Factory Management"], {
+				if ((count (call FO_fn_getOwnedFactories)) > 0) then {
+					createDialog "FactoryGUI";
+				} else {
+					systemChat "You don't own any factories.";
+				};
+			},
+		3, 1, true, true, "", "true", 3, true, "", ""];
+	};
+
 	ARSENAL_BOX addAction ["Factory Management", {call FO_fn_createFactorySelection}, nil, 1, true, true, "", "true", 3, true, "", ""];
 };
 
 
-call fn_init;
+[_useGUI] call fn_init;
