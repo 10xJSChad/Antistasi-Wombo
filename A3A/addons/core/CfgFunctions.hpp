@@ -761,6 +761,7 @@ class CfgFunctions
             class productionHandler {};
             class productionActionMenu {};
             class productionUnlocks {};
+            class productionGUIControls {};
         };
     };
 };

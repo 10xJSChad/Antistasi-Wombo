@@ -1,5 +1,8 @@
 #include "..\missionDescription\master.hpp"
 
+// GAMERARMY: Factory Overhaul GUI.
+#include "..\missionDescription\FactoryGUI.hpp"
+
 OnLoadName = $STR_antistasi_mission_info_Altis_mapname_short_text;
 OnLoadMission = $STR_antistasi_mission_info_Altis_blurb_text;
 briefingName = $STR_antistasi_mission_info_Altis_mapname_text;
