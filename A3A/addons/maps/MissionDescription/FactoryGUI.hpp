@@ -93,7 +93,7 @@ class FactoryGUI
 		class ItemCategoriesList
 		{
 			type = 4;
-			idc = -1;
+			idc = 69697;
 			x = safeZoneX + safeZoneW * 0.299375;
 			y = safeZoneY + safeZoneH * 0.18555556;
 			w = safeZoneW * 0.13125;
