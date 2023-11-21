@@ -4,6 +4,7 @@
 #define IDC_FACTORY_LIST    69691
 #define IDC_FACTORY_WEPS    69692
 #define IDC_CATEGORIES_LIST 69697
+#define IDC_ITEM_PICTURE    69698
 
 #define IDC_ITEM            69693
 #define IDC_QTY             69694
@@ -187,6 +188,37 @@ FO_fn_GUI_updateLabels = {
 };
 
 
+FO_fn_GUI_setItemPicture = {
+    params ["_itemClassName"];
+
+    private _picture = getText (configFile >> "CfgWeapons" >> _itemClassName >> "picture");
+    ctrlSetText [IDC_ITEM_PICTURE, _picture];
+};
+
+
+FO_fn_GUI_setSelectedWeaponPicture = {
+    private _selectedItem = lbText [IDC_FACTORY_WEPS, lbCurSel IDC_FACTORY_WEPS];
+    private _className = _selectedItem call FO_fn_GUI_findWeaponClassName;
+    systemChat _selectedItem;
+    systemChat _className;
+    [_className] call FO_fn_GUI_setItemPicture;
+    systemChat "Picture set";
+};
+
+
+FO_fn_GUI_updateLbWeaponPicture = {
+    private _count = lbSize IDC_FACTORY_WEPS;
+    for "_i" from 0 to (_count - 1) do {
+        private _displayName = lbText [IDC_FACTORY_WEPS, _i];
+        private _className = _displayName call FO_fn_GUI_findWeaponClassName;
+        private _picturePath = getText (configFile >> "CfgWeapons" >> _className >> "picture");;
+        lbSetPicture [IDC_FACTORY_WEPS, _i, _picturePath];
+        lbSetPictureColor [IDC_FACTORY_WEPS, _i, [1,1,1,1]];
+        lbSetPictureColorSelected [IDC_FACTORY_WEPS, _i, [1,1,1,1]];
+    };
+};
+
+
 FO_fn_GUI_addEventHandlers = {
     private _display          = findDisplay IDX_FACTORY_GUI;
     private _listBoxWeapons   = _display displayCtrl IDC_FACTORY_WEPS;
@@ -201,6 +233,9 @@ FO_fn_GUI_addEventHandlers = {
         private _factoryID = [_ownedFactories, _selText] call FO_fn_GUI_lookupFactoryIDbyName;
 
         [_factoryID] call FO_fn_GUI_updateLabels;
+
+        [] call FO_fn_GUI_setSelectedWeaponPicture;
+
     }];
 
     // Add the Selection Changed event handler to Owned Factories ListBox
@@ -225,6 +260,9 @@ FO_fn_GUI_addEventHandlers = {
         private _category = lbText [IDC_CATEGORIES_LIST, _selIndex];
         //systemChat str _selText;
         _category call FO_fn_GUI_addWeaponsToListbox;
+
+        [] call FO_fn_GUI_setSelectedWeaponPicture;
+        [] call FO_fn_GUI_updateLbWeaponPicture;
     }];
 
     // Add the ButtonClick event handler to Start/Stop Production Button.
@@ -287,3 +325,4 @@ FO_fn_GUI_addEventHandlers = {
 [] spawn FO_fn_GUI_addCategoriesToListbox;
 ["Any"] spawn FO_fn_GUI_addWeaponsToListbox;
 [] spawn FO_fn_GUI_addEventHandlers;
+[] spawn FO_fn_GUI_updateLbWeaponPicture;

@@ -1,5 +1,6 @@
 //Exported via Arma Dialog Creator (https://github.com/kayler-renslow/arma-dialog-creator)
 
+#include "CustomControlClasses.h"
 class FactoryGUI
 {
 	idd = 6969;
@@ -38,6 +39,22 @@ class FactoryGUI
 			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
 			
 		};
+		class ItemPictureBackground
+		{
+			type = 0;
+			idc = 69699;
+			x = safeZoneX + safeZoneW * 0.503125;
+			y = safeZoneY + safeZoneH * 0.23111112;
+			w = safeZoneW * 0.195;
+			h = safeZoneH * 0.24333334;
+			style = 0;
+			text = "";
+			colorBackground[] = {1,1,1,0.4};
+			colorText[] = {0,0,0,0};
+			font = "PuristaMedium";
+			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			
+		};
 		
 	};
 	class Controls
@@ -47,9 +64,9 @@ class FactoryGUI
 			type = 5;
 			idc = 69692;
 			x = safeZoneX + safeZoneW * 0.294375;
-			y = safeZoneY + safeZoneH * 0.22333334;
+			y = safeZoneY + safeZoneH * 0.23111112;
 			w = safeZoneW * 0.20625;
-			h = safeZoneH * 0.55;
+			h = safeZoneH * 0.54111112;
 			style = 16;
 			colorBackground[] = {0.302,0.302,0.302,0.5};
 			colorDisabled[] = {0.2,0.2,0.2,1};
@@ -57,8 +74,8 @@ class FactoryGUI
 			colorText[] = {1,1,1,1};
 			font = "PuristaMedium";
 			maxHistoryDelay = 0;
-			rowHeight = 0;
-			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.1);
+			rowHeight = 0.05;
+			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2);
 			soundSelect[] = {"\A3\ui_f\data\sound\RscListbox\soundSelect",0.09,1.0};
 			colorSelect2[] = {1,1,0.302,0.7};
 			colorSelectBackground[] = {0,0,0,0};
@@ -244,7 +261,7 @@ class FactoryGUI
 			type = 0;
 			idc = 0;
 			x = safeZoneX + safeZoneW * 0.5;
-			y = safeZoneY + safeZoneH * 0.40333334;
+			y = safeZoneY + safeZoneH * 0.47666667;
 			w = safeZoneW * 0.1125;
 			h = safeZoneH * 0.03666667;
 			style = 0;
@@ -260,7 +277,7 @@ class FactoryGUI
 			type = 0;
 			idc = 0;
 			x = safeZoneX + safeZoneW * 0.5;
-			y = safeZoneY + safeZoneH * 0.47777778;
+			y = safeZoneY + safeZoneH * 0.55111112;
 			w = safeZoneW * 0.1125;
 			h = safeZoneH * 0.03666667;
 			style = 0;
@@ -276,7 +293,7 @@ class FactoryGUI
 			type = 0;
 			idc = 69694;
 			x = safeZoneX + safeZoneW * 0.541875;
-			y = safeZoneY + safeZoneH * 0.47777778;
+			y = safeZoneY + safeZoneH * 0.55111112;
 			w = safeZoneW * 0.1125;
 			h = safeZoneH * 0.03666667;
 			style = 0;
@@ -292,7 +309,7 @@ class FactoryGUI
 			type = 0;
 			idc = 69693;
 			x = safeZoneX + safeZoneW * 0.504375;
-			y = safeZoneY + safeZoneH * 0.44222223;
+			y = safeZoneY + safeZoneH * 0.51555556;
 			w = safeZoneW * 0.1125;
 			h = safeZoneH * 0.03666667;
 			style = 0;
@@ -332,6 +349,27 @@ class FactoryGUI
 			soundEnter[] = {"\A3\ui_f\data\sound\RscButton\soundEnter",0.09,1.0};
 			soundEscape[] = {"\A3\ui_f\data\sound\RscButton\soundEscape",0.09,1.0};
 			soundPush[] = {"\A3\ui_f\data\sound\RscButton\soundPush",0.09,1.0};
+			
+		};
+		class ItemPicture
+		{
+			type = 0;
+			idc = 69698;
+			x = safeZoneX + safeZoneW * 0.503125;
+			y = safeZoneY + safeZoneH * 0.23111112;
+			w = safeZoneW * 0.195;
+			h = safeZoneH * 0.24333334;
+			style = 0+48+2048;
+			text = "";
+			colorBackground[] = {0,0,0,0};
+			colorText[] = {1,1,1,1};
+			font = "PuristaMedium";
+			sizeEx = (((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1);
+			lineSpacing = 0;
+			shadow = 0;
+			tooltipColorBox[] = {1,1,1,1};
+			tooltipColorShade[] = {0,0,0,0.65};
+			tooltipColorText[] = {1,1,1,1};
 			
 		};
 		
