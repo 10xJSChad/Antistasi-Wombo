@@ -43,6 +43,7 @@ FO_fn_GUI_displayCategoryToItemCategory = {
 
     private _itemCategory = "";
     {
+        // ["Apples", "Apples Oranges"] call BIS_fnc_inString returns true. Case sensitive is the third element, if specified.
         private _found = [_displayCategory, _x] call BIS_fnc_inString;
         if (_found) then {
             _itemCategory = _x;
@@ -126,7 +127,7 @@ FO_fn_GUI_displayNameToCategory = {
     params ["_selectedItem"];
     private _className = _selectedItem call FO_fn_GUI_findWeaponClassName;
 
-    // Example: ["Apples", "Apples Oranges"] call BIS_fnc_inString returns true. Case sensitive is the third element, if specified.
+    // Returns [Category,Type] --> "arifle_MX_pointer_F" call ... returns ["Weapon","AssaultRifle"]
     private _itemType = _className call BIS_fnc_itemType;
     private _itemCategory = (_itemType select 1) call FO_fn_GUI_displayCategoryToItemCategory;
     systemChat str _itemCategory;
