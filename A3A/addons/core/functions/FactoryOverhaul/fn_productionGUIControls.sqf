@@ -16,25 +16,25 @@
 
 FO_fn_GUI_itemCategories = [
     "Any",
-    "Rhs Handguns",
-    "Rhs AssaultRifle",
-    "Rhs Launcher",
-    "Rhs Rifle",
-    "Rhs SniperRifle",
-    "Rhs SpecialWeapon",
-    "Rhs MachineGun",
-    "Rhs SubmachineGun",
-    "Rhs LauncherMagazine",
-    "Rhs Magazine",
-    "Rhs Optics",
-    "Rhs Muzzle",
-    "Rhs Underbarrel",
-    "Rhs Pointer",
-    "Rhs Navigation",
-    "Rhs Misc",
-    "Rhs Vest",
-    "Rhs Uniform",
-    "Rhs Backpack"
+    "Handguns",
+    "AssaultRifle",
+    "Launcher",
+    "Rifle",
+    "SniperRifle",
+    "SpecialWeapon",
+    "MachineGun",
+    "SubmachineGun",
+    "LauncherMagazine",
+    "Magazine",
+    "Optics",
+    "Muzzle",
+    "Underbarrel",
+    "Pointer",
+    "Navigation",
+    "Misc",
+    "Vest",
+    "Uniform",
+    "Backpack"
 ];
 
 
@@ -88,27 +88,21 @@ FO_fn_GUI_createFactoryTownPairs = {
 FO_fn_GUI_addWeaponsToListbox = {
     params ["_category"];
     lbClear IDC_FACTORY_WEPS;
-    if (_category isEqualTo "Any") then {
-        {
-            private _itemDisplayName  = getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName");
+    
+    {
+        private _itemDisplayName = getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName");
+        private _itemCategory = _itemDisplayName call FO_fn_GUI_displayNameToCategory;
+
+        if (_category isEqualTo "Any" || _itemCategory isEqualTo _category) then {
             lbAdd [IDC_FACTORY_WEPS, _itemDisplayName];
-        } forEach call FO_fn_getUnlockedItems;    
-    } else {
-        {
-            private _itemDisplayName  = getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName");
-            private _itemCategory = _itemDisplayName call FO_fn_GUI_displayNameToCategory;
-            //private _wtf = call FO_fn_GUI_displayCategoryToItemCategory;
-            if (_itemCategory isEqualTo _category) then {
-                lbAdd [IDC_FACTORY_WEPS, _itemDisplayName];
-            };
-        } forEach call FO_fn_getUnlockedItems;    
-    };
+        };
+    } forEach call FO_fn_getUnlockedItems;
 };
 
 
 FO_fn_GUI_addCategoriesToListbox = {
     {
-        lbAdd [IDC_CATEGORIES_LIST, _x];
+    lbAdd [IDC_CATEGORIES_LIST, _x];
 	} forEach FO_fn_GUI_itemCategories;
     lbSetCurSel [IDC_CATEGORIES_LIST, 0]; // Setting first selection to "Any"
 };
@@ -131,6 +125,8 @@ FO_fn_GUI_lookupFactoryIDbyName = {
 FO_fn_GUI_displayNameToCategory = {
     params ["_selectedItem"];
     private _className = _selectedItem call FO_fn_GUI_findWeaponClassName;
+
+    // Example: ["Apples", "Apples Oranges"] call BIS_fnc_inString returns true. Case sensitive is the third element, if specified.
     private _itemType = _className call BIS_fnc_itemType;
     private _itemCategory = (_itemType select 1) call FO_fn_GUI_displayCategoryToItemCategory;
     systemChat str _itemCategory;
@@ -144,7 +140,8 @@ FO_fn_GUI_findWeaponClassName = {
     private _className = "";
     // Iterate through unlocked items
     {
-        if (_selectedItem isEqualTo getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName")) then {
+        private _displayName = getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName");
+        if (_selectedItem isEqualTo _displayName) then {
             // If a match is found, return the className
             _className = _x select 0;
         }
@@ -211,7 +208,7 @@ FO_fn_GUI_updateLbWeaponPicture = {
     for "_i" from 0 to (_count - 1) do {
         private _displayName = lbText [IDC_FACTORY_WEPS, _i];
         private _className = _displayName call FO_fn_GUI_findWeaponClassName;
-        private _picturePath = getText (configFile >> "CfgWeapons" >> _className >> "picture");;
+        private _picturePath = getText (configFile >> "CfgWeapons" >> _className >> "picture");
         lbSetPicture [IDC_FACTORY_WEPS, _i, _picturePath];
         lbSetPictureColor [IDC_FACTORY_WEPS, _i, [1,1,1,1]];
         lbSetPictureColorSelected [IDC_FACTORY_WEPS, _i, [1,1,1,1]];
@@ -233,7 +230,6 @@ FO_fn_GUI_addEventHandlers = {
         private _factoryID = [_ownedFactories, _selText] call FO_fn_GUI_lookupFactoryIDbyName;
 
         [_factoryID] call FO_fn_GUI_updateLabels;
-
         [] call FO_fn_GUI_setSelectedWeaponPicture;
 
     }];

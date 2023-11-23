@@ -57,6 +57,15 @@ if (reviveKitsEnabled) then {
 				[_nearFriendlyUnits select 0] spawn SCRT_fnc_ai_possessFriendlyUnit;
 			};
 		};
+		case DIK_Z: { // GAMERARMY: One time revive if user presses Z
+			private _usedRevive = player getVariable ["oneTimeRevive", false]; 
+			if (_usedRevive isEqualTo false) then {
+				(findDisplay 46) displayRemoveEventHandler ["KeyDown", respawnMenu];
+				player call A3A_fnc_oneTimeRevive;
+			} else {
+				["Error!", "You can't revive, you have already used your one-time revive!"] call A3A_fnc_customHint;
+			};
+		};
 	#if __A3_DEBUG__
 		case DIK_F: {
 			player setVariable ["incapacitated",false,true]; 

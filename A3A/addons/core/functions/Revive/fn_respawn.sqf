@@ -18,3 +18,6 @@ if (captive _unit) then {
 
 _unit setVariable ["respawning",false];
 _unit setDamage 1;
+
+// GAMERARMY: Reset the one-time use revive.
+_unit setVariable ["oneTimeRevive",false];

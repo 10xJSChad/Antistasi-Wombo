@@ -59,6 +59,9 @@ if (hasInterface) then {
 
     // GAMERARMY: Factory GUI Action
     [true] call A3A_fnc_productionActionMenu;
+
+    // GAMERARMY: revive stuff
+    player setVariable ["oneTimeRevive",false];
 };
 
 if !(isServer) then {

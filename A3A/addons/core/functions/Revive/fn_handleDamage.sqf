@@ -42,8 +42,7 @@ if (_part == "" && _damage > 0.1) then
 if (A3A_hasACEMedical) exitWith {};
 
 
-private _makeUnconscious =
-{
+makeUnconscious = {
 	params ["_unit", "_injurer"];
 	_unit setVariable ["incapacitated",true,true];
 	_unit setVariable ["helpFailed", 0];
@@ -124,11 +123,27 @@ else
 			{
 				if !(_unit getVariable ["incapacitated",false]) then
 				{
-					[_unit, _injurer] call _makeUnconscious;
+					private _layer1 = cutText ["You've been critically hit, and are losing your senses soon...", "PLAIN", 2];
+					0 cutFadeOut 2;
+					[_unit, _injurer] spawn FN_DELAYUNCONSCIOUS;
 				};
 			};
 		};
 	};
 };
 
-_damage
+// GAMERARMY: Delays unconsciousnes by 5 seconds, giving the player a brief moment to escape the gun fire.
+// Good for 2-3 people team playthrough.
+FN_DELAYUNCONSCIOUS = {
+	params ["_unit", "_injurer"];
+
+	_unit allowDamage false;
+	_unit setDamage 0.7;
+	_unit allowDamage false;
+	private _duration = time + 5;
+	waitUntil {time >= _duration};
+	_unit allowDamage true;
+	[_unit, _injurer] call makeUnconscious;
+};
+
+_damage;
