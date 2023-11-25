@@ -61,7 +61,7 @@ if (hasInterface) then {
     [true] call A3A_fnc_productionActionMenu;
 
     // GAMERARMY: revive stuff
-    player setVariable ["oneTimeRevive",false];
+    player setVariable ["oneTimeRevive",false,false];
 };
 
 if !(isServer) then {

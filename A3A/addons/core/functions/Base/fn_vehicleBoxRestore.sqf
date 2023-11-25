@@ -86,6 +86,11 @@ if (HR_GRG_hasFuelSource) then {
     } forEach _hqVehicles;
 };
 
+// GAMERARMY: Restore ability for players to use their one-time self revive kit.
+{
+    _x setVariable ["oneTimeRevive", false, false];
+} forEach _rebelPlayers;
+
 private _additiveTexts = [localize "STR_A3A_base_vehicleBoxRestore_noreported"]; 
  
 if (HR_GRG_hasRepairSource) then { 

@@ -12,7 +12,7 @@
 #define IDC_STARTSTOP_BTN   69695
 #define IDC_EXIT_BUTTON     69696
 
-#define DEBUG 1
+//#define DEBUG 1
 
 FO_fn_GUI_itemCategories = [
     "Any",
@@ -130,7 +130,9 @@ FO_fn_GUI_displayNameToCategory = {
     // Returns [Category,Type] --> "arifle_MX_pointer_F" call ... returns ["Weapon","AssaultRifle"]
     private _itemType = _className call BIS_fnc_itemType;
     private _itemCategory = (_itemType select 1) call FO_fn_GUI_displayCategoryToItemCategory;
+#ifdef DEBUG
     systemChat str _itemCategory;
+#endif
     _itemCategory;
 };
 
@@ -165,8 +167,9 @@ FO_fn_GUI_updateLabels = {
     private _item = _structure select 1;
     private _itemDisplayName = getText (configFile >> "CfgWeapons" >> _item >> "displayName");
 
-
+#ifdef DEBUG
     systemChat format ["Selected item: %1", _selectedItem];
+#endif
     if (([_structure] call FO_fn_factoryIsProducing) isEqualTo true) exitWith {
         private _qty = str (_structure select 2);
 
@@ -197,10 +200,13 @@ FO_fn_GUI_setItemPicture = {
 FO_fn_GUI_setSelectedWeaponPicture = {
     private _selectedItem = lbText [IDC_FACTORY_WEPS, lbCurSel IDC_FACTORY_WEPS];
     private _className = _selectedItem call FO_fn_GUI_findWeaponClassName;
+
+    [_className] call FO_fn_GUI_setItemPicture;
+#ifdef DEBUG
     systemChat _selectedItem;
     systemChat _className;
-    [_className] call FO_fn_GUI_setItemPicture;
     systemChat "Picture set";
+#endif
 };
 
 
