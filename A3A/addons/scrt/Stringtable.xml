@@ -7989,13 +7989,13 @@
                 <Korean>&lt;t size='0.6'&gt;인공지능 유닛을 조종하고 있습니다. 당신 스스로를 도우거나 원래 몸으로 되돌아가십시오.&lt;t size='0.5'&gt;&lt;/t&gt;&lt;/t&gt;</Korean>
             </Key>
             <Key ID="STR_antistasi_actions_unconscious_action_prompt0_base">
-                <Original>&lt;t size='0.6'&gt;There is no near AI unit to help you.&lt;t size='0.5'&gt;&lt;br/&gt;Press R to Respawn.%1%2&lt;/t&gt;&lt;/t&gt;</Original>
+                <Original>&lt;t size='0.6'&gt;There is no near AI unit to help you.&lt;t size='0.5'&gt;&lt;br/&gt;Press R to Respawn.%1%2%3&lt;/t&gt;&lt;/t&gt;</Original>
                 <Russian>&lt;t size='0.6'&gt;Поблизости нет дружественных ИИ-юнитов, которые могли бы вам помочь.&lt;t size='0.5'&gt;&lt;br/&gt;Нажмите R, чтобы возродиться.%1%2&lt;/t&gt;&lt;/t&gt;</Russian>
                 <Chinesesimp>&lt;t size='0.6'&gt;附近没有AI单位可以救你。&lt;t size='0.5'&gt;&lt;br/&gt;按R键重生。%1%2&lt;/t&gt;&lt;/t&gt;</Chinesesimp>
                 <Korean>&lt;t size='0.6'&gt;당신을 도와줄 인공지능 유닛이 근처에 없습니다.&lt;t size='0.5'&gt;&lt;br/&gt;재투입하려면 R 키를 누르십시오.%1%2&lt;/t&gt;&lt;/t&gt;</Korean>
             </Key>
             <Key ID="STR_antistasi_actions_unconscious_action_prompt1_base">
-                <Original>&lt;t size='0.6'&gt;%1 is on the way to help you.&lt;t size='0.5'&gt;&lt;br/&gt;Press R to Respawn.%2%3&lt;/t&gt;&lt;/t&gt;</Original>
+                <Original>&lt;t size='0.6'&gt;%1 is on the way to help you.&lt;t size='0.5'&gt;&lt;br/&gt;Press R to Respawn.%2%3%4&lt;/t&gt;&lt;/t&gt;</Original>
                 <Russian>&lt;t size='0.6'&gt;%1 спешит вам на помощь.&lt;t size='0.5'&gt;&lt;br/&gt;Нажмите R, чтобы возродиться.%2%3&lt;/t&gt;&lt;/t&gt;</Russian>
                 <Chinesesimp>&lt;t size='0.6'&gt; %1 正在来救你的路上。&lt;t size='0.5'&gt;&lt;br/&gt;按R键重生。%2%3&lt;/t&gt;&lt;/t&gt;</Chinesesimp>
                 <Korean>&lt;t size='0.6'&gt;%1이(가) 당신을 도우러 가는 중입니다.&lt;t size='0.5'&gt;&lt;br/&gt;재투입하려면 R 키를 누르십시오.%2%3&lt;/t&gt;&lt;/t&gt;</Korean>
@@ -8018,6 +8018,12 @@
                 <Russian>&lt;br/&gt;Нажмите Q, чтобы использовать набор восстановления боеспособности.</Russian>
                 <Chinesesimp>&lt;br/&gt;按 Q 使用战备恢复包。</Chinesesimp>
                 <Korean>&lt;br/&gt;전투 준비 복구 키트를 사용하려면 Q 키를 누르십시오.</Korean>
+            </Key>
+            <Key ID="STR_antistasi_actions_unconscious_action_prompt_onetimerevivekit">
+                <Original>&lt;br/&gt;Press Z to use your one-time revive.</Original>
+                <Russian>&lt;br/&gt;Нажмите Z, чтобы использовать одноразовое воскрешение.</Russian>
+                <Chinesesimp>&lt;br/&gt;按 Z 使用一次性复活。</Chinesesimp>
+                <Korean>&lt;br/&gt;일회용 부활을 사용하려면 Z를 누르십시오.</Korean>
             </Key>
             <Key ID="STR_antistasi_actions_common_access_vehicle_marker_text">
                 <Original>Access Vehicle Market</Original>

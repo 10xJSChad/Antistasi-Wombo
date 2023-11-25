@@ -110,14 +110,16 @@ while {time < _bleedOut && _unit getVariable ["incapacitated",false] && alive _u
 		_textX = format [
 			localize "STR_antistasi_actions_unconscious_action_prompt0_base", 
 			["", localize "STR_antistasi_actions_unconscious_action_prompt_possess"] select (count _consciousUnits > 0),
-			["", localize "STR_antistasi_actions_unconscious_action_prompt_selfrevive"] select ("A3AP_SelfReviveKit" in (backpackItems player))
+			["", localize "STR_antistasi_actions_unconscious_action_prompt_selfrevive"] select ("A3AP_SelfReviveKit" in (backpackItems player)),
+			[localize "STR_antistasi_actions_unconscious_action_prompt_onetimerevivekit", ""] select (_unit getVariable ["oneTimeRevive",false])
 		];
 		if !(isNull _helper) then {
 			if (_helper distance _unit < 3) then {
 				_textX = format [ localize "STR_antistasi_actions_unconscious_action_prompt1_base", 
 					name _helper,
 					["", localize "STR_antistasi_actions_unconscious_action_prompt_possess"] select (count _consciousUnits > 0),
-					["", localize "STR_antistasi_actions_unconscious_action_prompt_selfrevive"] select ("A3AP_SelfReviveKit" in (backpackItems player))
+					["", localize "STR_antistasi_actions_unconscious_action_prompt_selfrevive"] select ("A3AP_SelfReviveKit" in (backpackItems player)),
+					[localize "STR_antistasi_actions_unconscious_action_prompt_onetimerevivekit", ""] select (_unit getVariable ["oneTimeRevive",false])
 				];
 			} else {
 				_textX = format [localize "STR_antistasi_actions_unconscious_action_prompt2_base", 

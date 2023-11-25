@@ -754,6 +754,7 @@ class CfgFunctions
             file = QPATHTOFOLDER(functions\TCE);
             class vehicleRigSystem {};
             class empBlast {};
+            class oneTimeRevive {};
         };
 
         class FactoryOverhaul {

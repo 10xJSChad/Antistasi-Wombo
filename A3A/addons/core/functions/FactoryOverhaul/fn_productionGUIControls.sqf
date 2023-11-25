@@ -3,6 +3,8 @@
 #define IDX_FACTORY_GUI     6969
 #define IDC_FACTORY_LIST    69691
 #define IDC_FACTORY_WEPS    69692
+#define IDC_CATEGORIES_LIST 69697
+#define IDC_ITEM_PICTURE    69698
 
 #define IDC_ITEM            69693
 #define IDC_QTY             69694
@@ -10,7 +12,46 @@
 #define IDC_STARTSTOP_BTN   69695
 #define IDC_EXIT_BUTTON     69696
 
-#define DEBUG 1
+//#define DEBUG 1
+
+FO_fn_GUI_itemCategories = [
+    "Any",
+    "Handguns",
+    "AssaultRifle",
+    "Launcher",
+    "Rifle",
+    "SniperRifle",
+    "SpecialWeapon",
+    "MachineGun",
+    "SubmachineGun",
+    "LauncherMagazine",
+    "Magazine",
+    "Optics",
+    "Muzzle",
+    "Underbarrel",
+    "Pointer",
+    "Navigation",
+    "Misc",
+    "Vest",
+    "Uniform",
+    "Backpack"
+];
+
+
+FO_fn_GUI_displayCategoryToItemCategory = {
+    params ["_displayCategory"];
+
+    private _itemCategory = "";
+    {
+        // ["Apples", "Apples Oranges"] call BIS_fnc_inString returns true. Case sensitive is the third element, if specified.
+        private _found = [_displayCategory, _x] call BIS_fnc_inString;
+        if (_found) then {
+            _itemCategory = _x;
+        };
+    } forEach FO_fn_GUI_itemCategories;
+    _itemCategory;
+
+};
 
 
 FO_fn_GUI_addFactoriesToListbox = {
@@ -46,10 +87,25 @@ FO_fn_GUI_createFactoryTownPairs = {
 
 
 FO_fn_GUI_addWeaponsToListbox = {
+    params ["_category"];
+    lbClear IDC_FACTORY_WEPS;
+    
     {
-		private _itemName  = getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName");
-		lbAdd [IDC_FACTORY_WEPS, _itemName];
-	} forEach call FO_fn_getUnlockedItems;
+        private _itemDisplayName = getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName");
+        private _itemCategory = _itemDisplayName call FO_fn_GUI_displayNameToCategory;
+
+        if (_category isEqualTo "Any" || _itemCategory isEqualTo _category) then {
+            lbAdd [IDC_FACTORY_WEPS, _itemDisplayName];
+        };
+    } forEach call FO_fn_getUnlockedItems;
+};
+
+
+FO_fn_GUI_addCategoriesToListbox = {
+    {
+    lbAdd [IDC_CATEGORIES_LIST, _x];
+	} forEach FO_fn_GUI_itemCategories;
+    lbSetCurSel [IDC_CATEGORIES_LIST, 0]; // Setting first selection to "Any"
 };
 
 
@@ -67,20 +123,34 @@ FO_fn_GUI_lookupFactoryIDbyName = {
 };
 
 
-/* TODO
-FO_fn_GUI_lookupItemClassbyName = {
-    params ["_unlockedItemsArray","_displayName"];
+FO_fn_GUI_displayNameToCategory = {
+    params ["_selectedItem"];
+    private _className = _selectedItem call FO_fn_GUI_findWeaponClassName;
 
-    private _selectedItemClassname = "";
-    {
-        if ((_x select 1) isEqualTo _text) then {
-            _selectedItemClassname = _x select 0;
-        };
-    } forEach _factoryTownPairs;
-
-    _selectedItemClassname;
+    // Returns [Category,Type] --> "arifle_MX_pointer_F" call ... returns ["Weapon","AssaultRifle"]
+    private _itemType = _className call BIS_fnc_itemType;
+    private _itemCategory = (_itemType select 1) call FO_fn_GUI_displayCategoryToItemCategory;
+#ifdef DEBUG
+    systemChat str _itemCategory;
+#endif
+    _itemCategory;
 };
-*/
+
+
+FO_fn_GUI_findWeaponClassName = {
+    params ["_selectedItem"];
+
+    private _className = "";
+    // Iterate through unlocked items
+    {
+        private _displayName = getText (configFile >> "CfgWeapons" >> _x select 0 >> "displayName");
+        if (_selectedItem isEqualTo _displayName) then {
+            // If a match is found, return the className
+            _className = _x select 0;
+        }
+    } forEach call FO_fn_getUnlockedItems;
+    _className;
+};
 
 
 FO_fn_GUI_clearLabels = {
@@ -97,8 +167,9 @@ FO_fn_GUI_updateLabels = {
     private _item = _structure select 1;
     private _itemDisplayName = getText (configFile >> "CfgWeapons" >> _item >> "displayName");
 
-
+#ifdef DEBUG
     systemChat format ["Selected item: %1", _selectedItem];
+#endif
     if (([_structure] call FO_fn_factoryIsProducing) isEqualTo true) exitWith {
         private _qty = str (_structure select 2);
 
@@ -118,10 +189,45 @@ FO_fn_GUI_updateLabels = {
 };
 
 
+FO_fn_GUI_setItemPicture = {
+    params ["_itemClassName"];
+
+    private _picture = getText (configFile >> "CfgWeapons" >> _itemClassName >> "picture");
+    ctrlSetText [IDC_ITEM_PICTURE, _picture];
+};
+
+
+FO_fn_GUI_setSelectedWeaponPicture = {
+    private _selectedItem = lbText [IDC_FACTORY_WEPS, lbCurSel IDC_FACTORY_WEPS];
+    private _className = _selectedItem call FO_fn_GUI_findWeaponClassName;
+
+    [_className] call FO_fn_GUI_setItemPicture;
+#ifdef DEBUG
+    systemChat _selectedItem;
+    systemChat _className;
+    systemChat "Picture set";
+#endif
+};
+
+
+FO_fn_GUI_updateLbWeaponPicture = {
+    private _count = lbSize IDC_FACTORY_WEPS;
+    for "_i" from 0 to (_count - 1) do {
+        private _displayName = lbText [IDC_FACTORY_WEPS, _i];
+        private _className = _displayName call FO_fn_GUI_findWeaponClassName;
+        private _picturePath = getText (configFile >> "CfgWeapons" >> _className >> "picture");
+        lbSetPicture [IDC_FACTORY_WEPS, _i, _picturePath];
+        lbSetPictureColor [IDC_FACTORY_WEPS, _i, [1,1,1,1]];
+        lbSetPictureColorSelected [IDC_FACTORY_WEPS, _i, [1,1,1,1]];
+    };
+};
+
+
 FO_fn_GUI_addEventHandlers = {
     private _display          = findDisplay IDX_FACTORY_GUI;
     private _listBoxWeapons   = _display displayCtrl IDC_FACTORY_WEPS;
     private _listBoxFactories = _display displayCtrl IDC_FACTORY_LIST;
+    private _listBoxCategories = _display displayCtrl IDC_CATEGORIES_LIST;
     private _startStopButton  = _display displayCtrl IDC_STARTSTOP_BTN;
     private _exitButton       = _display displayCtrl IDC_EXIT_BUTTON;
 
@@ -131,6 +237,8 @@ FO_fn_GUI_addEventHandlers = {
         private _factoryID = [_ownedFactories, _selText] call FO_fn_GUI_lookupFactoryIDbyName;
 
         [_factoryID] call FO_fn_GUI_updateLabels;
+        [] call FO_fn_GUI_setSelectedWeaponPicture;
+
     }];
 
     // Add the Selection Changed event handler to Owned Factories ListBox
@@ -147,6 +255,17 @@ FO_fn_GUI_addEventHandlers = {
 #endif
 
         [_factoryID] call FO_fn_GUI_updateLabels;
+    }];
+
+    // Add the Selection Changed event handler to Item Categories ListBox
+    _listBoxCategories ctrlAddEventHandler ["LBSelChanged", {
+        private _selIndex = lbCurSel IDC_CATEGORIES_LIST;
+        private _category = lbText [IDC_CATEGORIES_LIST, _selIndex];
+        //systemChat str _selText;
+        _category call FO_fn_GUI_addWeaponsToListbox;
+
+        [] call FO_fn_GUI_setSelectedWeaponPicture;
+        [] call FO_fn_GUI_updateLbWeaponPicture;
     }];
 
     // Add the ButtonClick event handler to Start/Stop Production Button.
@@ -206,5 +325,7 @@ FO_fn_GUI_addEventHandlers = {
 
 
 [] spawn FO_fn_GUI_addFactoriesToListbox;
-[] spawn FO_fn_GUI_addWeaponsToListbox;
+[] spawn FO_fn_GUI_addCategoriesToListbox;
+["Any"] spawn FO_fn_GUI_addWeaponsToListbox;
 [] spawn FO_fn_GUI_addEventHandlers;
+[] spawn FO_fn_GUI_updateLbWeaponPicture;
